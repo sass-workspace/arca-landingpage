@@ -81,8 +81,8 @@ facts:
    surname/role, Francques order-record claim, WhatsApp yes/no, ES version.
 3. **Form**: currently `mailto:` — needs real endpoint (Formspree or
    Cloudflare Worker) before launch.
-4. **Sign-offs from Honor**: buyer-logo trademark use, partner-logo
-   permissions, hero positioning wording.
+4. **Sign-offs from Honor**: hero positioning wording.
+   (Buyer/partner logo use: CONFIRMED by Honor, Aug 2026.)
 
 ## History / related material
 

@@ -42,6 +42,4 @@ see `js/site.js`, the `contact-form` handler.
 
 ## Trademark note
 
-Buyer-relationship logos (Harrods, Net-A-Porter, …) name non-client companies.
-Practice is common but get Honor's sign-off; typographic fallback is trivial
-(render names as styled text in the same marquee).
+Buyer-relationship and partner logo use confirmed by Honor (Aug 2026).
