@@ -3,106 +3,84 @@
 ## What this is
 
 One-page marketing site for **Arca Consultancy** (arca-consultancy.com) — a
-London-based fashion consultancy (founder: **Honor Ripley**) that takes
-luxury/contemporary fashion brands into international wholesale. Showrooms in
-Paris, London & New York. Single conversion goal: a qualified brand founder
-sends an inquiry.
-
-## Stack & structure
-
-Plain static site — **no framework, no build step**. Don't introduce one
-without being asked.
-
-```
-index.html        all 7 sections + footer (semantic, sections in order below)
-css/style.css     full design system + responsive (breakpoints: 1024/860/560)
-js/site.js        logo walls (from config arrays), scroll reveals, hero video,
-                  form mailto handoff
-assets/logos/     client + press logos (recolored cream via CSS filter)
-assets/buyers/    12 retailer logos (Harrods, Net-A-Porter, …)
-assets/images/    hero video, specimen texture, grain, placeholders
-```
-
-Local dev: `python3 -m http.server` → localhost:8000.
+London-based fashion consultancy (founder: **Honor Ripley**) taking
+luxury/contemporary brands (Latin American focus) into international retail.
+Live: https://arca-landingpage.ms-45f.workers.dev
+Repo: https://github.com/sass-workspace/arca-landingpage
 
 ## Design source of truth
 
-The design lives in the Claude design project **"Arca Consultancy landing
-page"** (id `62f6dacf-6859-4786-a635-c32b0163c8e0`), reachable via the
-DesignSync tool. Two files there:
+**The design handoff bundle** (`~/Downloads/design_handoff_arca_site/`) —
+`README.md` (spec) + `Arca Landing.dc.html` (prototype) + `Arca Brand
+Guidelines.dc.html` (CI sheet). This implementation follows the prototype
+1:1. Where the handoff README's prose and the prototype disagree, **the
+prototype wins** (e.g. proof section: stories left / Ola Azul image right,
+walls full-width below as marquees).
 
-- `Arca Landing v2.dc.html` — **current visual direction** (editorial):
-  full-bleed hero + overlay header, COLLECTION specimen SVG, ruled services
-  list, static logo walls, pin+dot process steps, uppercase outline buttons.
-- `Arca Landing.dc.html` — older direction (pill buttons, marquees) but was
-  the first to carry corrected content.
+Do NOT redesign from memory or from other versions in the Claude design
+project — "Arca Landing v2" (editorial/orange direction) was explicitly
+rejected by the client.
 
-This repo = **v2 visuals + corrected content** (content wins over whatever a
-design file says — see next section).
+## Stack & structure
 
-## Content rules (important)
+Static front-end + one Cloudflare Worker. No framework, no build step.
 
-Facts come from Arca's official portfolio PDF (authoritative) — summarized in
-`arca-design-project-brief.md` in the design project's uploads. Key locked-in
-facts:
+```
+index.html      seven sections + sticky header + footer
+css/style.css   tokens, components, responsive (900px / 560px)
+js/site.js      marquee fill, reveals, connector lines, video triggers, form
+src/worker.js   serves assets + POST /api/contact → email
+assets/         logos/ buyers/ images/ — copied AS-IS from the handoff
+                (background-keyed; buyers use the .png cleaned set;
+                 wordmark = arca-wordmark-cream.png at GLYPH heights:
+                 header 15px/13px, footer 18px — never the badge version)
+wrangler.jsonc  Worker + assets binding + send_email binding
+```
 
-- Positioning: "We build fashion brands ready for international growth"
-  (global, NOT LatAm-only — LatAm/Colombiamoda is one strength)
-- Founder: Honor Ripley, London. Contact: honor@arca-consultancy.com,
-  +44 7896 976515. Footer cities: London — Paris — New York.
-- Stats (publishable): 3,000+ retail relationships · 600+ accounts managed ·
-  2× season wholesale growth · 60%+ e-commerce growth
-- Process: FOUR steps (Immersion / Insight & Direction / Refinement /
-  International Launch)
-- Testimonial: Pitusa founder quote (verbatim, do not paraphrase)
-- Never invent numbers, clients, or testimonials. Unconfirmed claims stay as
-  visible `[[ todo ]]` tags — do not silently resolve them.
-- The stat tiles were removed from the proof section to match the v2 design;
-  the numbers live in the buyer-wall caption. Do not re-add tiles without a
-  design-project update.
+Local dev: `npx wrangler dev` (form works) or `python3 -m http.server`
+(static only). Deploy: `npx wrangler deploy`.
 
-## Motion system
+## Form backend
 
-- Scroll-snap: `y proximity` on html, sections snap-align start ("slide"
-  feel; proximity NOT mandatory — mandatory trapped the footer 16px short).
-- Reveal-on-scroll: `[data-rv]` fades up once via IntersectionObserver.
-- Specimen video: plays ONCE when its vertical center is within ±25% of
-  the viewport center; static SVG is the no-asset/error fallback.
+`POST /api/contact` → Cloudflare Email Sending → **honor@arca-consultancy.com**.
+`from` is currently `noreply@tryopenclimb.com` (the only domain onboarded to
+Email Sending on this account). When `arca-consultancy.com` is added to
+Cloudflare: `npx wrangler email sending enable arca-consultancy.com`, then
+update `CONTACT_FROM` in `src/worker.js`.
 
-## Brand system (non-negotiable)
+## Brand system (from the handoff — canonical in Arca Brand Guidelines.dc.html)
 
-- **Arca Blue `#08177E`** and **Arca Cream `#FFFDF3`** — type on blue is
-  always cream, NEVER pure `#FFFFFF`.
-- Fonts: **Cormorant Garamond** (display serif, ≥28px only) +
-  **DM Sans** (body/UI). Exactly two families.
-- Logo: lowercase "arca" wordmark (`assets/logos/arca-wordmark.png`) —
-  never in a circle, never re-typed in another font.
-- UI language: uppercase letterspaced (.16–.22em) small labels, 1px outline
-  buttons, square corners. No drop shadows, no rounded cards, no icons/emoji.
-- Logo walls render monochrome cream via `filter: var(--f-cream)`.
+- **Arca Blue `#08177E`** · **Arca Cream `#FFFDF3`** (never pure white on
+  blue) · Card Cream `#FCFBF4` · TODO Yellow `#F7C948` (never ships)
+- Cormorant Garamond (display) + DM Sans (text/UI); five type sizes
+- One button style (cream pill); no drop shadows except the header bar
+- Logos rendered monochrome via CSS filters (`--f-cream`, `--f-blue`);
+  sources are black-on-transparent, sized optically (each height in site.js)
+- Band rhythm: cream → cream → cream → BLUE → cream → cream → BLUE
 
-## Open items (blocking launch)
+## Motion (implemented per prototype)
 
-1. **Assets**: Honor portrait (`honor-portrait-placeholder.svg` is a stub),
-   Cult Mia/SER placement image (bordered placeholder in proof section),
-   Casa SER texture for specimen section (interim: Ola Azul campaign),
-   SER Miami hero image (hero is the v2 warm block `#C96F3B` until then),
-   `assets/images/collection-animate.mp4` (specimen section upgrades from
-   static SVG to the animation automatically once the file exists —
-   plays once when centered in viewport), vector wordmark (current PNG
-   is 260px). Logo files still needed: SER, Mai Petit, lululemon wordmark
-   (all three currently render as styled text in the client wall; the
-   fetched mai-petit.gif was a WRONG logo and was removed; ser-cream.png
-   kept corrupting in transfer — export manually from the design project).
-2. **Copy**: founder statement placeholders ([[X years]] etc.), Isobelle's
-   surname/role, Francques order-record claim, WhatsApp yes/no, ES version.
-3. **Form**: currently `mailto:` — needs real endpoint (Formspree or
-   Cloudflare Worker) before launch.
-4. **Sign-offs from Honor**: hero positioning wording.
-   (Buyer/partner logo use: CONFIRMED by Honor, Aug 2026.)
+- Scroll-snap `y mandatory` desktop, **disabled ≤900px**
+- Reveals: `[data-rv]` fade-up once (26px / .8s, threshold .12)
+- Marquees: 32s/42s/38s-reverse, 2× duplicated rows, never pause
+- Collection video plays ONCE when centered in viewport (±25% innerHeight)
+- Services connector lines: L-shaped 1px divs, staggered draw-in
+  (i×900ms, +500ms horizontal), redrawn on resize, desktop only
+- Steps ≤900px: horizontal snap rail, cards 76% wide, edge-bleed 22px
 
-## History / related material
+## Content rules
 
-Research artifacts (IG scrape, competitor analysis, logo manifests) live in
-`../scraping/` — see `arca-design-project-brief.md` and
-`arca-instagram-audit.md` there for the full background.
+- Copy is source-of-truth from the handoff — never rewrite or "improve"
+- Unconfirmed content ships as visible chips on `#F7C948`: three founder
+  `[[placeholders]]`, Isobelle `[[surname/role]]`, one Francques TODO —
+  resolve or remove before launch, never silently
+- No invented clients/numbers/testimonials; no emoji; no exclamation marks
+- Banned words: elevate, unlock, seamless, empower, transform your brand
+
+## Open before launch
+
+1. Founder placeholders + Isobelle role + Francques claim (ask Honor)
+2. Onboard arca-consultancy.com for email + custom domain routing
+3. Third-party logo permissions: client/buyer/press marks belong to their
+   owners — Honor confirmed use (Aug 2026), keep the paper trail
+4. ES version (toggles are UI-only)
