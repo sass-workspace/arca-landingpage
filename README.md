@@ -1,7 +1,7 @@
 # Arca Consultancy — Landing Page
 
 Static one-page site for [arca-consultancy.com](https://arca-consultancy.com).
-Implementation of `Arca Landing.dc.html` from the Claude design project
+Implementation of `Arca Landing v2.dc.html` (editorial direction) from the Claude design project
 ("Arca Consultancy landing page"), rebuilt as dependency-free HTML/CSS/JS.
 
 ## Stack
