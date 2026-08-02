@@ -134,9 +134,6 @@
 
   /* ------- hero video: keep playing ------- */
   var hv = document.getElementById('hero-video');
-  if (hv && window.matchMedia('(max-width: 900px)').matches) {
-    hv.removeAttribute('src'); hv.load(); hv = null; // hidden on mobile — skip the download
-  }
   if (hv) {
     hv.muted = true; hv.loop = true; hv.autoplay = true;
     var go = function () { hv.play().catch(function () {}); };

@@ -63,7 +63,7 @@ h1, h2, h3 { margin: 0; }
 .ph-chip-sm { font-size: 12px; }
 
 /* ---------- sticky header ---------- */
-.site-header { position: sticky; top: 14px; z-index: 50; padding: 0 20px; }
+.site-header { position: sticky; top: 14px; z-index: 50; padding: 0 20px; height: 0; }
 .header-bar {
   max-width: 1180px; margin: 0 auto;
   background: var(--blue);
@@ -270,9 +270,20 @@ h1, h2, h3 { margin: 0; }
   .section, .services-section, .proof-section, .contact-section, .steps-section, .site-footer {
     padding-left: 22px; padding-right: 22px;
   }
-  .section { padding-top: 92px; padding-bottom: 92px; }
+  .section { padding-top: 64px; padding-bottom: 64px; }
+  .client-strip { padding: 36px 0; }
+  .section-head.ruled, .section-head-simple.ruled { padding-top: 40px; }
+  .services-section { padding-bottom: 80px; }
+  .proof-section { padding-top: 80px; padding-bottom: 72px; }
+  .stats-grid { margin-top: 40px; }
+  .stories-grid { margin-top: 48px; }
+  .walls { margin-top: 64px; }
+  .steps-section { padding-bottom: 80px; }
+  .steps-grid { margin-top: 40px; }
+  .contact-section { padding-top: 80px; padding-bottom: 72px; }
+  .contact-form { margin-top: 40px; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; }
-  .hero-copy { padding: 74px 22px 56px; }
+  .hero-copy { padding: 96px 22px 48px; }
   .hero-media { display: none; }
   .problem-grid, .stories-grid, .founder-grid, .contact-form { grid-template-columns: 1fr; gap: 44px; }
   .contact-form { gap: 28px 32px; }
@@ -282,6 +293,7 @@ h1, h2, h3 { margin: 0; }
     display: flex; gap: 16px; overflow-x: auto;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
     scrollbar-width: none; margin-left: -22px; margin-right: -22px; padding: 0 22px 6px;
+    scroll-padding: 0 22px;
   }
   .svc-list::-webkit-scrollbar { display: none; }
   .svc-wrap.svc-0, .svc-wrap.svc-1, .svc-wrap.svc-2 {
@@ -293,6 +305,7 @@ h1, h2, h3 { margin: 0; }
     display: flex; gap: 16px; overflow-x: auto;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
     scrollbar-width: none; margin-left: -22px; margin-right: -22px; padding: 0 22px 6px;
+    scroll-padding: 0 22px;
   }
   .steps-grid::-webkit-scrollbar { display: none; }
   .steps-grid > * { flex: 0 0 76%; scroll-snap-align: start; min-height: 0; }
