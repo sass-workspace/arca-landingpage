@@ -24,7 +24,8 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+section, footer { scroll-snap-align: start; scroll-snap-stop: normal; }
 body {
   margin: 0;
   background: var(--cream);
@@ -81,12 +82,7 @@ h2 { font-size: clamp(30px, 3vw, 42px); line-height: 1.12; text-wrap: balance; }
 .todo-tag.inline { font-style: normal; font-size: 13px; padding: 2px 6px; margin: 0; }
 
 /* ---------- 1 · hero ---------- */
-.hero { position: relative; height: 100vh; min-height: 640px; background: var(--blue); overflow: hidden; }
-.hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero-tint {
-  position: absolute; inset: 0;
-  background: linear-gradient(200deg, rgba(8, 23, 126, .1) 0%, rgba(8, 23, 126, .28) 55%, rgba(8, 23, 126, .55) 100%);
-}
+.hero { position: relative; height: 100vh; min-height: 640px; background: #C96F3B; overflow: hidden; }
 .hero-header {
   position: absolute; top: 0; left: 0; right: 0; z-index: 3;
   display: flex; align-items: center; gap: 36px; padding: 26px 44px;
@@ -113,6 +109,9 @@ h2 { font-size: clamp(30px, 3vw, 42px); line-height: 1.12; text-wrap: balance; }
 }
 .specimen-section .container { position: relative; }
 .specimen { display: block; width: 100%; }
+.specimen-video { display: none; width: 100%; }
+.specimen-section.has-video .specimen-video { display: block; }
+.specimen-section.has-video .specimen { display: none; }
 .specimen-word { font-family: var(--sans); font-weight: 800; font-size: 200px; letter-spacing: -.02em; fill: var(--blue); }
 .specimen line { stroke: var(--blue); stroke-width: 1.25; }
 .specimen circle { fill: var(--blue); }
@@ -154,6 +153,10 @@ h2 { font-size: clamp(30px, 3vw, 42px); line-height: 1.12; text-wrap: balance; }
   gap: 52px 40px; align-items: center; justify-items: start;
 }
 .wall-grid img { filter: var(--f-cream); }
+.wall-text {
+  font-family: var(--sans); font-weight: 600; color: var(--cream);
+  letter-spacing: .22em; text-transform: uppercase; font-size: 15px; line-height: 1;
+}
 .wall-caption { margin: 34px 0 0; font-size: 13.5px; color: var(--cream-60); }
 .wall-more { margin: 56px 0 0; font-size: 14.5px; line-height: 1.8; color: var(--cream-70); }
 

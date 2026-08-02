@@ -57,6 +57,17 @@ facts:
 - Testimonial: Pitusa founder quote (verbatim, do not paraphrase)
 - Never invent numbers, clients, or testimonials. Unconfirmed claims stay as
   visible `[[ todo ]]` tags — do not silently resolve them.
+- The stat tiles were removed from the proof section to match the v2 design;
+  the numbers live in the buyer-wall caption. Do not re-add tiles without a
+  design-project update.
+
+## Motion system
+
+- Scroll-snap: `y proximity` on html, sections snap-align start ("slide"
+  feel; proximity NOT mandatory — mandatory trapped the footer 16px short).
+- Reveal-on-scroll: `[data-rv]` fades up once via IntersectionObserver.
+- Specimen video: plays ONCE when its vertical center is within ±25% of
+  the viewport center; static SVG is the no-asset/error fallback.
 
 ## Brand system (non-negotiable)
 
@@ -75,8 +86,14 @@ facts:
 1. **Assets**: Honor portrait (`honor-portrait-placeholder.svg` is a stub),
    Cult Mia/SER placement image (bordered placeholder in proof section),
    Casa SER texture for specimen section (interim: Ola Azul campaign),
-   SER Miami hero image (interim: brand video), vector wordmark (current
-   PNG is 260px).
+   SER Miami hero image (hero is the v2 warm block `#C96F3B` until then),
+   `assets/images/collection-animate.mp4` (specimen section upgrades from
+   static SVG to the animation automatically once the file exists —
+   plays once when centered in viewport), vector wordmark (current PNG
+   is 260px). Logo files still needed: SER, Mai Petit, lululemon wordmark
+   (all three currently render as styled text in the client wall; the
+   fetched mai-petit.gif was a WRONG logo and was removed; ser-cream.png
+   kept corrupting in transfer — export manually from the design project).
 2. **Copy**: founder statement placeholders ([[X years]] etc.), Isobelle's
    surname/role, Francques order-record claim, WhatsApp yes/no, ES version.
 3. **Form**: currently `mailto:` — needs real endpoint (Formspree or

@@ -2,17 +2,18 @@
 (function () {
   'use strict';
 
-  /* ------- logo walls (static grids, all recolored cream via CSS filter) ------- */
+  /* ------- logo walls (static grids; images recolored cream via CSS filter,
+     items with `text` render as styled wordmarks until a clean logo file exists) ------- */
   var clients = [
-    { src: 'assets/logos/ser-cream.png', alt: 'SER', h: 46 },
+    { text: 'SER' },
     { src: 'assets/logos/miale.png', alt: 'Mialé', h: 38 },
-    { src: 'assets/logos/mai-petit.gif', alt: 'Mai Petit', h: 48 },
+    { text: 'MAI · PETIT' },
     { src: 'assets/logos/ola-azul.png', alt: 'Ola Azul', h: 32 },
     { src: 'assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 22 },
     { src: 'assets/logos/bahama-mama.png', alt: 'Bahama Mama', h: 21 },
     { src: 'assets/logos/francques.png', alt: 'Francques', h: 26 },
     { src: 'assets/logos/andres-pajon.svg', alt: 'Andrés Pajón', h: 30 },
-    { src: 'assets/logos/lululemon.svg', alt: 'lululemon', h: 34 },
+    { text: 'lululemon' },
     { src: 'assets/logos/pitusa.png', alt: 'Pitusa', h: 30 },
     { src: 'assets/logos/reina-olga.png', alt: 'Reina Olga', h: 36 },
     { src: 'assets/logos/agua-by-agua-bendita.png', alt: 'Agua by Agua Bendita', h: 46 },
@@ -27,10 +28,10 @@
     { src: 'assets/buyers/mytheresa.png', alt: 'MyTheresa', h: 24 },
     { src: 'assets/buyers/moda-operandi.svg', alt: 'Moda Operandi', h: 20 },
     { src: 'assets/buyers/harvey-nichols.svg', alt: 'Harvey Nichols', h: 22 },
-    { src: 'assets/buyers/printemps.svg', alt: 'Printemps', h: 26 },
-    { src: 'assets/buyers/le-bon-marche.svg', alt: 'Le Bon Marché', h: 40 },
-    { src: 'assets/buyers/galeries-lafayette.svg', alt: 'Galeries Lafayette', h: 36 },
-    { src: 'assets/buyers/revolve.png', alt: 'Revolve', h: 26 }
+    { src: 'assets/buyers/printemps.svg', alt: 'Printemps', h: 30 },
+    { src: 'assets/buyers/le-bon-marche.svg', alt: 'Le Bon Marché', h: 58 },
+    { src: 'assets/buyers/galeries-lafayette.svg', alt: 'Galeries Lafayette', h: 46 },
+    { src: 'assets/buyers/revolve.png', alt: 'Revolve', h: 64 }
   ];
   var press = [
     { src: 'assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 42 },
@@ -46,12 +47,19 @@
     var wall = document.getElementById(id);
     if (!wall) return;
     defs.forEach(function (d) {
-      var img = document.createElement('img');
-      img.src = d.src;
-      img.alt = d.alt;
-      img.style.height = d.h + 'px';
-      img.loading = 'lazy';
-      wall.appendChild(img);
+      var el;
+      if (d.text) {
+        el = document.createElement('span');
+        el.className = 'wall-text';
+        el.textContent = d.text;
+      } else {
+        el = document.createElement('img');
+        el.src = d.src;
+        el.alt = d.alt;
+        el.style.height = d.h + 'px';
+        el.loading = 'lazy';
+      }
+      wall.appendChild(el);
     });
   }
   fillWall('client-wall', clients);
@@ -71,14 +79,30 @@
     rvEls.forEach(function (el) { el.classList.add('rv-in'); });
   }
 
-  /* ------- hero video: keep playing ------- */
-  var hv = document.getElementById('hero-video');
-  if (hv) {
-    var go = function () { hv.play().catch(function () {}); };
-    go();
-    hv.addEventListener('pause', go);
-    hv.addEventListener('ended', go);
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) go(); });
+  /* ------- specimen animation: video plays ONCE when vertically centered in
+     the viewport; static SVG remains the fallback until the asset exists ------- */
+  var cv = document.getElementById('collection-video');
+  if (cv) {
+    var section = cv.closest('.specimen-section');
+    cv.addEventListener('loadeddata', function () {
+      if (section) section.classList.add('has-video');
+      var played = false;
+      var check = function () {
+        if (played) return;
+        var r = cv.getBoundingClientRect();
+        var mid = r.top + r.height / 2, vc = window.innerHeight / 2;
+        if (Math.abs(mid - vc) < window.innerHeight * 0.25) {
+          played = true;
+          cv.play().catch(function () {});
+          window.removeEventListener('scroll', check);
+        }
+      };
+      window.addEventListener('scroll', check, { passive: true });
+      check();
+    });
+    cv.addEventListener('error', function () {
+      if (section) section.classList.remove('has-video'); // SVG fallback stays
+    });
   }
 
   /* ------- contact form: mailto handoff until a backend exists ------- */
