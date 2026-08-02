@@ -273,11 +273,21 @@ h1, h2, h3 { margin: 0; }
   .section { padding-top: 92px; padding-bottom: 92px; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; }
   .hero-copy { padding: 74px 22px 56px; }
-  .hero-media { min-height: 0; width: 100%; height: min(66vh, 125vw); }
+  .hero-media { display: none; }
   .problem-grid, .stories-grid, .founder-grid, .contact-form { grid-template-columns: 1fr; gap: 44px; }
   .contact-form { gap: 28px 32px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 24px; }
-  .svc-wrap.svc-0, .svc-wrap.svc-1, .svc-wrap.svc-2 { margin-left: 0; margin-top: 26px; }
+  .svc-list {
+    margin-top: 48px;
+    display: flex; gap: 16px; overflow-x: auto;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; margin-left: -22px; margin-right: -22px; padding: 0 22px 6px;
+  }
+  .svc-list::-webkit-scrollbar { display: none; }
+  .svc-wrap.svc-0, .svc-wrap.svc-1, .svc-wrap.svc-2 {
+    margin-left: 0; margin-top: 0;
+    flex: 0 0 76%; scroll-snap-align: start; display: flex;
+  }
   .svc-card { max-width: 100%; padding: 26px 22px 30px; }
   .steps-grid {
     display: flex; gap: 16px; overflow-x: auto;
@@ -287,8 +297,8 @@ h1, h2, h3 { margin: 0; }
   .steps-grid::-webkit-scrollbar { display: none; }
   .steps-grid > * { flex: 0 0 76%; scroll-snap-align: start; min-height: 0; }
   .founder-media { min-height: 0; aspect-ratio: 4 / 5; position: relative; }
-  .header-bar { gap: 14px; padding: 8px 8px 8px 16px; }
-  .header-cta { padding: 11px 18px; font-size: 12.5px; }
+  .header-bar { gap: 14px; padding: 8px 8px 8px 16px; justify-content: space-between; }
+  .header-cta { padding: 11px 18px; font-size: 12.5px; margin-left: auto; }
   .nav-links, .nav-lang { display: none; }
   .marquee { gap: 52px; }
   .footer-right { margin-left: 0; }
