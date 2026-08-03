@@ -199,7 +199,7 @@
       var target = id ? document.getElementById(id) : null;
       if (!target && id !== 'top') return;
       ev.preventDefault();
-      var y = id === 'top' ? 0 : target.getBoundingClientRect().top + window.pageYOffset;
+      var y = id === 'top' ? 0 : target.offsetTop; // offsetTop: unaffected by reveal transforms
       if (!motionOK) { window.scrollTo(0, y); return; }
       var dist = Math.abs(y - window.pageYOffset);
       animateScrollTo(y, Math.max(450, Math.min(1100, dist * 0.55)));
@@ -213,7 +213,7 @@
     var snapTargets = function () {
       return Array.prototype.map.call(
         document.querySelectorAll('main > section, footer'),
-        function (el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+        function (el) { return el.offsetTop; } // layout position — reveal transforms don't skew it
       );
     };
     var trySnap = function () {
