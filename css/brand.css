@@ -1,0 +1,124 @@
+/* ARCA — Brand guidelines & CI sheet (implementation of Arca Brand Guidelines.dc.html) */
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #FFFDF3; color: #08177E;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: #08177E; text-decoration: none; }
+a:hover { opacity: .72; }
+img { max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+
+.container { max-width: 1080px; margin: 0 auto; }
+.mono { font-family: ui-monospace, Menlo, monospace; }
+
+.bg-header { background: #08177E; color: #FFFDF3; padding: 80px 44px 64px; }
+.bg-header img { height: 24px; display: block; }
+.bg-header h1 {
+  margin-top: 44px; font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(38px, 4.4vw, 62px); line-height: 1.06; color: #FFFDF3;
+}
+.bg-header .lede { margin-top: 22px; max-width: 56ch; font-size: 16.5px; line-height: 1.7; color: rgba(255,253,243,.82); }
+.bg-header .version { margin-top: 34px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .14em; color: rgba(255,253,243,.55); }
+
+.sheet-section { padding: 96px 44px 0; }
+.sheet-section.last { padding-bottom: 110px; }
+.eyebrow { margin-bottom: 26px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.sheet-section h2 {
+  margin-bottom: 40px; font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(30px, 3vw, 44px);
+}
+
+/* 01 · colour */
+.swatch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.swatch { height: 150px; border-radius: 12px; }
+.swatch.blue { background: #08177E; }
+.swatch.cream { background: #FFFDF3; border: 1px solid rgba(8,23,126,.18); }
+.swatch.card-cream { background: #FCFBF4; border: 1px solid rgba(8,23,126,.18); }
+.swatch.todo { background: #F7C948; }
+.swatch-name { margin: 14px 0 4px; font-size: 15px; font-weight: 600; }
+.swatch-hex { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; color: rgba(8,23,126,.7); }
+.swatch-use { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: rgba(8,23,126,.68); }
+.tints { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px 40px; font-size: 13.5px; line-height: 1.7; color: rgba(8,23,126,.7); }
+.rhythm-note { margin-top: 26px; max-width: 70ch; font-size: 14.5px; line-height: 1.75; color: rgba(8,23,126,.7); }
+
+/* 02 · typography */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.type-label { margin-bottom: 16px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.type-display {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 52px; line-height: 1.06; letter-spacing: -.01em;
+}
+.type-note { margin-top: 20px; font-size: 14px; line-height: 1.7; color: rgba(8,23,126,.7); }
+.type-body { font-size: 17px; line-height: 1.75; color: rgba(8,23,126,.82); }
+.type-eyebrow-demo { margin-top: 22px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.type-mono-demo { margin-top: 14px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .06em; color: rgba(8,23,126,.7); }
+.type-scale { margin-top: 44px; border-top: 1px solid rgba(8,23,126,.2); padding-top: 26px; font-size: 14.5px; line-height: 1.7; color: rgba(8,23,126,.75); }
+.type-scale .mono { font-size: 13px; }
+
+/* 03 · logo */
+.logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.logo-stage { background: #08177E; border-radius: 14px; padding: 56px; display: flex; align-items: center; justify-content: center; }
+.logo-stage img { height: 30px; }
+.logo-rules { display: grid; gap: 14px; align-content: center; font-size: 14.5px; line-height: 1.75; color: rgba(8,23,126,.78); }
+.logo-rules strong { font-weight: 600; }
+
+/* 04 · components */
+.kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.grain-card {
+  position: relative; overflow: hidden; border-radius: 14px; padding: 30px 30px 34px;
+  background:
+    radial-gradient(78% 46% at 96% 2%, rgba(31,49,214,.92) 0%, rgba(43,62,220,.6) 22%, rgba(90,110,235,.26) 46%, rgba(160,175,245,.08) 66%, rgba(255,253,243,0) 82%),
+    radial-gradient(46% 22% at 8% 96%, rgba(31,49,214,.14) 0%, rgba(255,253,243,0) 74%),
+    #FCFBF4;
+}
+.grain-overlay {
+  position: absolute; inset: 0; opacity: .55; mix-blend-mode: multiply;
+  background-image: url('../assets/images/grain.png');
+  background-size: 200px 200px; background-repeat: repeat; pointer-events: none;
+}
+.grain-card .inner { position: relative; }
+.step-pill { display: inline-block; border: 1px solid rgba(8,23,126,.35); border-radius: 999px; padding: 8px 18px; font-size: 12px; letter-spacing: .06em; }
+.grain-card h3 { margin-top: 24px; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 23px; line-height: 1.25; }
+.grain-card .inner p { margin-top: 12px; font-size: 14.5px; line-height: 1.65; color: rgba(8,23,126,.78); }
+.kit-right { display: grid; gap: 26px; align-content: start; }
+.kit-label { margin-bottom: 14px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.kit-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.demo-pill { background: #08177E; color: #FFFDF3; padding: 14px 28px; border-radius: 999px; font-size: 14.5px; font-weight: 600; }
+.demo-link { font-size: 14.5px; font-weight: 500; padding: 14px 4px; border-bottom: 1px solid rgba(8,23,126,.5); }
+.kit-note { margin-top: 14px; font-size: 13.5px; line-height: 1.7; color: rgba(8,23,126,.7); }
+.kit-body { font-size: 13.5px; line-height: 1.7; color: rgba(8,23,126,.7); }
+.demo-missing {
+  display: inline-flex; align-items: center; justify-content: center; height: 34px; padding: 0 16px;
+  border: 1px dashed rgba(8,23,126,.35); font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px; letter-spacing: .14em; color: rgba(8,23,126,.55);
+}
+.demo-todo {
+  font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .06em;
+  color: #08177E; background: #F7C948; padding: 4px 8px;
+}
+
+/* 05 · layout, motion & imagery */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.rules-col { display: grid; gap: 22px; font-size: 14.5px; line-height: 1.75; color: rgba(8,23,126,.78); }
+.rules-col strong { font-weight: 600; }
+.rules-col .mono { font-size: 13px; }
+
+/* 06 · checklist */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; border-top: 1px solid rgba(8,23,126,.2); }
+.check-grid p { padding: 20px 0; border-bottom: 1px solid rgba(8,23,126,.12); font-size: 15px; line-height: 1.6; }
+
+/* footer */
+.bg-footer { background: #08177E; color: #FFFDF3; padding: 44px 28px; margin-top: 0; }
+.bg-footer .inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.bg-footer img { height: 16px; display: block; }
+.bg-footer .cities { font-size: 13.5px; letter-spacing: .06em; color: rgba(255,253,243,.7); }
+.bg-footer .version { margin-left: auto; font-size: 12.5px; color: rgba(255,253,243,.55); }
+
+@media (max-width: 860px) {
+  .bg-header, .sheet-section { padding-left: 22px; padding-right: 22px; }
+  .swatch-grid, .two-col, .logo-grid, .kit-grid, .rules-grid, .check-grid { grid-template-columns: 1fr; }
+  .type-display { font-size: 40px; }
+}

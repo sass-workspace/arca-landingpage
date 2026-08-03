@@ -27,6 +27,8 @@ Static front-end + one Cloudflare Worker. No framework, no build step.
 
 ```
 index.html      seven sections + sticky header + footer
+brand/index.html  brand guidelines & CI sheet (served at /brand/, noindex)
+css/brand.css   guidelines page styles
 css/style.css   tokens, components, responsive (900px / 560px)
 js/site.js      marquee fill, reveals, connector lines, video triggers, form
 src/worker.js   serves assets + POST /api/contact → email
@@ -48,7 +50,7 @@ Email Sending on this account). When `arca-consultancy.com` is added to
 Cloudflare: `npx wrangler email sending enable arca-consultancy.com`, then
 update `CONTACT_FROM` in `src/worker.js`.
 
-## Brand system (from the handoff — canonical in Arca Brand Guidelines.dc.html)
+## Brand system (canonical: /brand/ — the live CI sheet; keep it updated whenever the system changes)
 
 - **Arca Blue `#08177E`** · **Arca Cream `#FFFDF3`** (never pure white on
   blue) · Card Cream `#FCFBF4` · TODO Yellow `#F7C948` (never ships)
