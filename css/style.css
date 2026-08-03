@@ -14,6 +14,16 @@
 }
 
 * { box-sizing: border-box; }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--cream); color: var(--blue);
+  padding: 12px 20px; font-size: 14px; font-weight: 600;
+}
+.skip-link:focus { left: 14px; top: 14px; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid currentColor; outline-offset: 3px;
+}
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: none; } /* underline focus per spec */
 html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
 section, footer { scroll-snap-align: start; scroll-snap-stop: normal; scroll-margin-top: 0px; }
 body {

@@ -46,12 +46,17 @@
   function fillRow(id, defs, filterClass) {
     var row = document.getElementById(id);
     if (!row) return;
-    defs.concat(defs).forEach(function (d) {
+    defs.concat(defs).forEach(function (d, i) {
       var img = document.createElement('img');
       img.src = d.src;
-      img.alt = d.alt;
       img.style.height = d.h + 'px';
       img.className = filterClass;
+      if (i < defs.length) {
+        img.alt = d.alt;
+      } else {
+        img.alt = '';                       // seamless-loop duplicate:
+        img.setAttribute('aria-hidden', 'true'); // hidden from screen readers
+      }
       row.appendChild(img);
     });
   }

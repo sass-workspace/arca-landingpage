@@ -80,6 +80,15 @@ update `CONTACT_FROM` in `src/worker.js`.
   (i×900ms, +500ms horizontal), redrawn on resize, desktop only
 - Steps ≤900px: horizontal snap rail, cards 76% wide, edge-bleed 22px
 
+## Accessibility layer (invisible — preserve it)
+
+All of these change nothing visually; do not strip them during edits:
+skip-link (.skip-link, appears on keyboard focus), <main> landmark,
+aria-labels on the five form fields and both Instagram icon links,
+aria-hidden on decorative videos and on the marquee's duplicate logo
+set (the seamless-loop copy), :focus-visible outlines (form fields
+excepted — their focus state is the underline per spec).
+
 ## Content rules
 
 - Copy is source-of-truth from the handoff — never rewrite or "improve"
