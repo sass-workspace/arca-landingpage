@@ -24,23 +24,33 @@ rejected by the client.
 ## Stack & structure
 
 Static front-end + one Cloudflare Worker. No framework, no build step.
+Every file below is load-bearing — nothing unused is kept in the repo.
 
 ```
-index.html      seven sections + sticky header + footer
-brand/index.html  brand guidelines & CI sheet (served at /brand/, noindex)
-css/brand.css   guidelines page styles
-css/style.css   tokens, components, responsive (900px / 560px)
-js/site.js      marquee fill, reveals, connector lines, video triggers, form
-src/worker.js   serves assets + POST /api/contact → email
-assets/         logos/ buyers/ images/ — copied AS-IS from the handoff
-                (background-keyed; buyers use the .png cleaned set;
-                 wordmark = arca-wordmark-cream.png at GLYPH heights:
-                 header 15px/13px, footer 18px — never the badge version)
-wrangler.jsonc  Worker + assets binding + send_email binding
+index.html          landing page: seven sections + sticky header + footer
+brand/index.html    brand guidelines & CI sheet (/brand/, noindex)
+css/style.css       landing tokens, components, responsive (900px / 560px)
+css/brand.css       guidelines page styles
+js/site.js          marquees, reveals, connector lines, video triggers, form
+src/worker.js       serves assets + POST /api/contact → email
+assets/logos/       20 client/press marks + arca-wordmark-cream.png
+                    (glyph heights: header 15/13px, footer 18px; never the
+                    badge version, never in a container shape)
+assets/buyers/      12 buyer marks — the cleaned .png set only
+assets/images/      2 videos, portrait, campaign image, grain tile
+favicon/            16/32/48/180/192/512 PNG set (cream wordmark on blue)
+social/             og-image-en.png / og-image-es.png (1200×630)
+site.webmanifest    PWA manifest (theme #08177E)
+wrangler.jsonc      Worker + assets binding + send_email binding
+.assetsignore       keeps repo/meta files out of the deployed assets
 ```
 
 Local dev: `npx wrangler dev` (form works) or `python3 -m http.server`
 (static only). Deploy: `npx wrangler deploy`.
+
+Rule: when adding an asset, reference it or don't commit it. When removing
+a feature, remove its files. Re-run the unused check before big commits:
+every file in assets/ must be greppable from index.html/brand/css/js/src.
 
 ## Form backend
 
@@ -78,6 +88,23 @@ update `CONTACT_FROM` in `src/worker.js`.
   resolve or remove before launch, never silently
 - No invented clients/numbers/testimonials; no emoji; no exclamation marks
 - Banned words: elevate, unlock, seamless, empower, transform your brand
+
+## Future adjustments — do not forget
+
+- **Domain switch (arca-consultancy.com):** update `og:url` + `og:image`
+  absolute URLs in index.html, `CONTACT_FROM` in src/worker.js, and run
+  `npx wrangler email sending enable arca-consultancy.com`. Add the custom
+  domain to the Worker.
+- **/brand/ is the living CI sheet** — any change to colors, type, spacing,
+  components or motion on the site MUST be mirrored on /brand/ in the same
+  commit. If they diverge, /brand/ is wrong and the change was incomplete.
+- **OG images** are rendered with system font stand-ins — re-render from the
+  design file with real Cormorant Garamond/DM Sans when brand type matters.
+- **Spanish OG copy** (social/og-image-es.png + the es_ES snippet in the
+  export README) is an unreviewed translation — brand review before an ES
+  page ships. ES meta tags are NOT yet in index.html (EN only until i18n).
+- **Favicon rule:** the square favicon is the ONLY permitted container for
+  the wordmark. Everywhere else: no container shapes.
 
 ## Open before launch
 
