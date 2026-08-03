@@ -240,8 +240,13 @@ h1, h2, h3 { margin: 0; }
 .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 8px; }
 .btn-submit { padding: 15px 34px; }
 .signoff { margin: 0; font-family: var(--serif); font-style: italic; font-size: 21px; color: rgba(255, 253, 243, .85); }
-.contact-direct { margin: 48px 0 0; font-size: 13.5px; line-height: 2; color: rgba(255, 253, 243, .6); }
-.contact-direct a { color: var(--cream); }
+.contact-direct {
+  margin: 48px 0 0; font-size: 13.5px; color: rgba(255, 253, 243, .6);
+  display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center;
+}
+.contact-item { display: inline-flex; align-items: center; gap: 9px; color: var(--cream); }
+.contact-item svg { flex: none; opacity: .75; }
+.contact-item-note { color: rgba(255, 253, 243, .6); }
 
 /* ---------- footer ---------- */
 .site-footer { border-top: 1px solid rgba(255, 253, 243, .2); padding: 44px 28px; }
@@ -298,7 +303,7 @@ h1, h2, h3 { margin: 0; }
   .svc-list::-webkit-scrollbar { display: none; }
   .svc-wrap.svc-0, .svc-wrap.svc-1, .svc-wrap.svc-2 {
     margin-left: 0; margin-top: 0;
-    flex: 0 0 76%; scroll-snap-align: start; display: flex;
+    flex: 0 0 86%; scroll-snap-align: start; display: flex;
   }
   .svc-card { max-width: 100%; padding: 26px 22px 30px; }
   .steps-grid {
