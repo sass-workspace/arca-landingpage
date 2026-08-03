@@ -141,11 +141,14 @@
   var hv = document.getElementById('hero-video');
   if (hv) {
     hv.muted = true; hv.loop = true; hv.autoplay = true;
-    var go = function () { hv.play().catch(function () {}); };
-    go();
+    var heroHidden = window.matchMedia('(max-width: 900px)');
+    var go = function () { if (!heroHidden.matches) hv.play().catch(function () {}); };
+    var syncHero = function () { if (heroHidden.matches) { hv.pause(); } else { go(); } };
     hv.addEventListener('pause', go);
     hv.addEventListener('ended', go);
     document.addEventListener('visibilitychange', function () { if (!document.hidden) go(); });
+    if (heroHidden.addEventListener) heroHidden.addEventListener('change', syncHero);
+    syncHero();
   }
 
   /* ------- reveal on scroll ------- */
@@ -159,6 +162,82 @@
     rvEls.forEach(function (el) { rvIo.observe(el); });
   } else {
     rvEls.forEach(function (el) { el.classList.add('rv-in'); });
+  }
+
+  /* ------- smooth scroll engine: eased anchors + gentle section snap-assist -------
+     Replaces CSS scroll-snap (mandatory felt abrupt, and Safari's native snap
+     fights momentum). Pure rAF easing — identical feel in Chrome and Safari. */
+  var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isDesktop = function () { return window.innerWidth > 900; };
+  var animId = null;
+
+  function cancelScrollAnim() {
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+  }
+  function animateScrollTo(targetY, duration) {
+    cancelScrollAnim();
+    var startY = window.pageYOffset;
+    var maxY = document.documentElement.scrollHeight - window.innerHeight;
+    targetY = Math.max(0, Math.min(targetY, maxY));
+    var delta = targetY - startY;
+    if (Math.abs(delta) < 2) return;
+    var start = null;
+    var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    var stepFn = function (ts) {
+      if (start === null) start = ts;
+      var p = Math.min(1, (ts - start) / duration);
+      window.scrollTo(0, startY + delta * ease(p));
+      if (p < 1) { animId = requestAnimationFrame(stepFn); } else { animId = null; }
+    };
+    animId = requestAnimationFrame(stepFn);
+  }
+
+  // eased anchor navigation (duration scales with distance)
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      var id = a.getAttribute('href').slice(1);
+      var target = id ? document.getElementById(id) : null;
+      if (!target && id !== 'top') return;
+      ev.preventDefault();
+      var y = id === 'top' ? 0 : target.getBoundingClientRect().top + window.pageYOffset;
+      if (!motionOK) { window.scrollTo(0, y); return; }
+      var dist = Math.abs(y - window.pageYOffset);
+      animateScrollTo(y, Math.max(450, Math.min(1100, dist * 0.55)));
+      if (history.pushState) history.pushState(null, '', '#' + id);
+    });
+  });
+
+  // snap-assist: when scrolling settles near a section edge, glide to it
+  if (motionOK) {
+    var snapTimer = null;
+    var snapTargets = function () {
+      return Array.prototype.map.call(
+        document.querySelectorAll('main > section, footer'),
+        function (el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+      );
+    };
+    var trySnap = function () {
+      if (!isDesktop() || animId) return;
+      var y = window.pageYOffset;
+      var win = window.innerHeight * 0.28;   // only assist near an edge — never yank mid-section
+      var best = null, bestDist = win;
+      snapTargets().forEach(function (t) {
+        var d = Math.abs(t - y);
+        if (d < bestDist) { best = t; bestDist = d; }
+      });
+      if (best !== null && bestDist > 2) {
+        animateScrollTo(best, Math.max(350, Math.min(700, bestDist * 1.4)));
+      }
+    };
+    window.addEventListener('scroll', function () {
+      if (animId) return;                     // our own animation — leave it alone
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(trySnap, 150);
+    }, { passive: true });
+    // any fresh user intent cancels an in-flight glide immediately
+    ['wheel', 'touchstart', 'keydown'].forEach(function (evt) {
+      window.addEventListener(evt, cancelScrollAnim, { passive: true });
+    });
   }
 
   /* ------- contact form → POST /api/contact (Cloudflare Worker → honor@arca-consultancy.com) ------- */

@@ -21,11 +21,11 @@ h1, h2, h3, p { margin: 0; }
   font-size: clamp(38px, 4.4vw, 62px); line-height: 1.06; color: #FFFDF3;
 }
 .bg-header .lede { margin-top: 22px; max-width: 56ch; font-size: 16.5px; line-height: 1.7; color: rgba(255,253,243,.82); }
-.bg-header .version { margin-top: 34px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .14em; color: rgba(255,253,243,.55); }
+.bg-header .version { margin-top: 34px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .14em; color: rgba(255,253,243,.65); }
 
 .sheet-section { padding: 96px 44px 0; }
 .sheet-section.last { padding-bottom: 110px; }
-.eyebrow { margin-bottom: 26px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.eyebrow { margin-bottom: 26px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(8,23,126,.7); }
 .sheet-section h2 {
   margin-bottom: 40px; font-family: 'Cormorant Garamond', serif; font-weight: 500;
   font-size: clamp(30px, 3vw, 44px);
@@ -46,7 +46,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* 02 · typography */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
-.type-label { margin-bottom: 16px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.type-label { margin-bottom: 16px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.7); }
 .type-display {
   font-family: 'Cormorant Garamond', serif; font-weight: 500;
   font-size: 52px; line-height: 1.06; letter-spacing: -.01em;
@@ -84,7 +84,7 @@ h1, h2, h3, p { margin: 0; }
 .grain-card h3 { margin-top: 24px; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 23px; line-height: 1.25; }
 .grain-card .inner p { margin-top: 12px; font-size: 14.5px; line-height: 1.65; color: rgba(8,23,126,.78); }
 .kit-right { display: grid; gap: 26px; align-content: start; }
-.kit-label { margin-bottom: 14px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.55); }
+.kit-label { margin-bottom: 14px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(8,23,126,.7); }
 .kit-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .demo-pill { background: #08177E; color: #FFFDF3; padding: 14px 28px; border-radius: 999px; font-size: 14.5px; font-weight: 600; }
 .demo-link { font-size: 14.5px; font-weight: 500; padding: 14px 4px; border-bottom: 1px solid rgba(8,23,126,.5); }
@@ -115,7 +115,7 @@ h1, h2, h3, p { margin: 0; }
 .bg-footer .inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
 .bg-footer img { height: 16px; display: block; }
 .bg-footer .cities { font-size: 13.5px; letter-spacing: .06em; color: rgba(255,253,243,.7); }
-.bg-footer .version { margin-left: auto; font-size: 12.5px; color: rgba(255,253,243,.55); }
+.bg-footer .version { margin-left: auto; font-size: 12.5px; color: rgba(255,253,243,.65); }
 
 @media (max-width: 860px) {
   .bg-header, .sheet-section { padding-left: 22px; padding-right: 22px; }
