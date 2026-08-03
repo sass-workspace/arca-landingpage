@@ -167,8 +167,7 @@
   /* ------- smooth scroll engine: eased anchors + gentle section snap-assist -------
      Replaces CSS scroll-snap (mandatory felt abrupt, and Safari's native snap
      fights momentum). Pure rAF easing — identical feel in Chrome and Safari. */
-  var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isDesktop = function () { return window.innerWidth > 900; };
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var animId = null;
 
   function cancelScrollAnim() {
@@ -200,45 +199,47 @@
       if (!target && id !== 'top') return;
       ev.preventDefault();
       var y = id === 'top' ? 0 : target.offsetTop; // offsetTop: unaffected by reveal transforms
-      if (!motionOK) { window.scrollTo(0, y); return; }
-      var dist = Math.abs(y - window.pageYOffset);
-      animateScrollTo(y, Math.max(450, Math.min(1100, dist * 0.55)));
+      if (reducedMotion) { window.scrollTo(0, y); } else {
+        var dist = Math.abs(y - window.pageYOffset);
+        animateScrollTo(y, Math.max(450, Math.min(1100, dist * 0.55)));
+      }
       if (history.pushState) history.pushState(null, '', '#' + id);
     });
   });
 
-  // snap-assist: when scrolling settles near a section edge, glide to it
-  if (motionOK) {
-    var snapTimer = null;
-    var snapTargets = function () {
-      return Array.prototype.map.call(
-        document.querySelectorAll('main > section, footer'),
-        function (el) { return el.offsetTop; } // layout position — reveal transforms don't skew it
-      );
-    };
-    var trySnap = function () {
-      if (!isDesktop() || animId) return;
-      var y = window.pageYOffset;
-      var win = window.innerHeight * 0.28;   // only assist near an edge — never yank mid-section
-      var best = null, bestDist = win;
-      snapTargets().forEach(function (t) {
-        var d = Math.abs(t - y);
-        if (d < bestDist) { best = t; bestDist = d; }
-      });
-      if (best !== null && bestDist > 2) {
-        animateScrollTo(best, Math.max(350, Math.min(700, bestDist * 1.4)));
-      }
-    };
-    window.addEventListener('scroll', function () {
-      if (animId) return;                     // our own animation — leave it alone
-      clearTimeout(snapTimer);
-      snapTimer = setTimeout(trySnap, 150);
-    }, { passive: true });
-    // any fresh user intent cancels an in-flight glide immediately
-    ['wheel', 'touchstart', 'keydown'].forEach(function (evt) {
-      window.addEventListener(evt, cancelScrollAnim, { passive: true });
+  // snap-assist: when scrolling settles near a section edge, glide to it.
+  // Desktop AND mobile; with reduced-motion the snap still happens, just without easing.
+  var snapTimer = null;
+  var snapTargets = function () {
+    return Array.prototype.map.call(
+      document.querySelectorAll('main > section:not(.client-strip), footer'),
+      function (el) { return el.offsetTop; } // layout position — reveal transforms don't skew it
+    );
+  };
+  var trySnap = function () {
+    if (animId) return;
+    var y = window.pageYOffset;
+    var isMobile = window.innerWidth <= 900;
+    var win = window.innerHeight * (isMobile ? 0.35 : 0.42); // catch window around section edges
+    var best = null, bestDist = win;
+    snapTargets().forEach(function (t) {
+      var d = Math.abs(t - y);
+      if (d < bestDist) { best = t; bestDist = d; }
     });
-  }
+    if (best !== null && bestDist > 2) {
+      if (reducedMotion) { window.scrollTo(0, best); }
+      else { animateScrollTo(best, Math.max(380, Math.min(750, bestDist * 1.2))); }
+    }
+  };
+  window.addEventListener('scroll', function () {
+    if (animId) return;                     // our own animation — leave it alone
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(trySnap, 120);
+  }, { passive: true });
+  // any fresh user intent cancels an in-flight glide immediately
+  ['wheel', 'touchstart', 'keydown'].forEach(function (evt) {
+    window.addEventListener(evt, cancelScrollAnim, { passive: true });
+  });
 
   /* ------- contact form → POST /api/contact (Cloudflare Worker → honor@arca-consultancy.com) ------- */
   var form = document.getElementById('contact-form');
