@@ -212,15 +212,33 @@ h1, h2, h3 { margin: 0; }
 .highlights li::before {
   content: ''; position: absolute; left: -62px; top: 0; width: 1px;
   height: calc(100% + 32px); background: rgba(255, 253, 243, .32);
+  /* draws downward; each branch fires just after its own segment lands */
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .26s ease-out;
+  transition-delay: calc(var(--i, 0) * 180ms);
 }
 .highlights li:first-child::before { top: .85em; height: calc(100% - .85em + 32px); }
 .highlights li:last-child::before { height: .85em; }
-/* branch + arrowhead */
+/* branch + arrowhead — clipped rather than scaled, so the arrowhead arrives at
+   full size at the end of the stroke instead of stretching along with it */
 .highlights li::after {
   content: ''; position: absolute; left: -62px; top: calc(.85em - 4.5px);
   width: 42px; height: 9px;
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='42' height='9'><path d='M0 4.5H40M36.5 1.5L39.5 4.5 36.5 7.5' fill='none' stroke='%23FFFDF3' stroke-opacity='0.32'/></svg>") no-repeat left center;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .32s ease-out;
+  transition-delay: calc(var(--i, 0) * 180ms + 170ms);
 }
+.proof-grid.rv-in .highlights li::before { transform: scaleY(1); }
+.proof-grid.rv-in .highlights li::after { clip-path: inset(0 0 0 0); }
+.highlights li:nth-child(1) { --i: 0; }
+.highlights li:nth-child(2) { --i: 1; }
+.highlights li:nth-child(3) { --i: 2; }
+.highlights li:nth-child(4) { --i: 3; }
+.highlights li:nth-child(5) { --i: 4; }
+.highlights li:nth-child(6) { --i: 5; }
+.highlights li:nth-child(7) { --i: 6; }
+.highlights li:nth-child(8) { --i: 7; }
 /* align-self: start — the list runs taller than the image, and a stretched box would
    leave dead space under a contained picture */
 .proof-media { position: relative; min-height: 520px; align-self: start; overflow: hidden; }
@@ -316,6 +334,9 @@ h1, h2, h3 { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   [data-rv] { opacity: 1; transform: none; transition: none; }
   .marquee { animation: none; }
+  /* connector ships fully drawn rather than stuck at zero */
+  .highlights li::before { transform: none; transition: none; }
+  .highlights li::after { clip-path: none; transition: none; }
 }
 
 /* ---------- responsive (per prototype data-m rules) ---------- */
