@@ -195,6 +195,12 @@ h1, h2, h3 { margin: 0; }
 .proof-grid { margin-top: 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
 /* connector treatment per the handoff: one spine, a branch arrow to each item —
    the same 1px hairline vocabulary as the services connector lines */
+/* section sub-head, H3 tier — serif display rather than the uppercase eyebrow the
+   logo-wall labels use, per the handoff */
+.highlights-title {
+  margin: 0 0 30px; font-family: var(--serif); font-weight: 500;
+  font-size: 29px; line-height: 1.2; color: var(--cream);
+}
 .highlights { margin: 8px 0 0; padding: 0 0 0 62px; list-style: none; }
 .highlights li {
   position: relative;
