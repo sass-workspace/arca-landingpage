@@ -68,8 +68,13 @@ update `CONTACT_FROM` in `src/worker.js`.
   headings share `--ls-display` / `--lh-display` — never set tracking or leading
   per heading, that is what drifted and got flagged in review
 - One button style (cream pill); no drop shadows except the header bar
-- Logos rendered monochrome via CSS filters (`--f-cream`, `--f-blue`);
-  sources are black-on-transparent, sized optically (each height in site.js)
+- Logos rendered monochrome via CSS filters (`--f-cream`, `--f-blue`); sources
+  are black-on-transparent. **Sized and centred on the cap band, not the
+  bounding box** — one ~19px cap height across every row, `w` from the file's
+  aspect, `dy` to put the cap band on the row centre (see the header comment in
+  `js/site.js`). Box-centring is what made the walls look ragged in review:
+  SER's tagline and Mialé's accent pushed their letterforms off the line.
+  Signatures/monograms/lockups have no cap band — those are set by eye
 - Band rhythm: cream → cream → cream → BLUE → cream → cream → BLUE
 
 ## Motion (implemented per prototype)

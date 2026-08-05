@@ -127,7 +127,9 @@
         </div>
         <div>
           <p class="kit-label">Logo walls</p>
-          <p class="kit-body">Monochrome only — cream on blue, blue on cream, via filter. Marquee with an 8%/92% edge mask, 80px gaps, 32–42s loops, fixed 56px row. Sizes are set per mark by optical mass, not uniform height: wide wordmarks 20–26px, compact or stacked marks 34–40px. Size on the mark's <em>ink</em>, not its canvas — a file carrying transparent padding renders smaller than its neighbours at the same height. Trim every file's padding and knock out its background before it goes in, and give every image an explicit width and height so the row reserves its space before the logos decode.</p>
+          <p class="kit-body">Monochrome only — cream on blue, blue on cream, via filter. Marquee with an 8%/92% edge mask, 80px gaps, 32–42s loops, fixed 56px row.</p>
+          <p class="kit-body">Marks are sized and aligned on their <strong>cap band</strong> — the dominant band of letterforms — never on the file's bounding box. Every logo wraps its letters differently: a tagline under SER, an accent over MIALÉ, a descender on a script mark. Equal box heights therefore give unequal letter sizes, and equal box centres put the letters on different lines. Target one cap height across every row (~19px), clamp the box so a very wide mark stays under ~300px, and nudge each mark so its cap band — not its box — sits on the row centre. Signatures, monograms and symbol lockups have no cap band; size those by optical mass.</p>
+          <p class="kit-body">Trim every file's padding and knock out its background before it goes in, and give every image an explicit width and height so the row reserves its space before the logos decode.</p>
         </div>
         <div>
           <p class="kit-label">Placeholders</p>
