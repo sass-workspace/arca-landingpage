@@ -7,12 +7,16 @@
      file's natural aspect. Both are written as attributes so the row reserves its width
      before the images decode — otherwise width:max-content and the translateX(-50%) loop
      both shift as logos land, which reads as a misaligned strip on first paint.
+     `dy` is an optical nudge in px for marks whose bounding box lies about its visual
+     centre — a descender or swash pulls the box down, so centring the box leaves the
+     letterforms sitting high. Only add one you have measured against the row centre.
      A def with `label` instead of `src` renders a TODO chip for a logo we don't have yet. ------- */
   var clients = [
     { src: 'assets/logos/ser-cream.png', alt: 'SER', h: 46, w: 73 },
     { src: 'assets/logos/mai-petit.svg', alt: 'Mai Petit', h: 22, w: 178 },
     { src: 'assets/logos/miale.png', alt: 'Mialé', h: 38, w: 146 },
-    { src: 'assets/logos/valentina-quintero.png', alt: 'Valentina Quintero', h: 22, w: 194 },
+    // dy 2: the Q tail hangs below the cap band, so the box centres 2px high
+    { src: 'assets/logos/valentina-quintero.png', alt: 'Valentina Quintero', h: 22, w: 194, dy: 2 },
     { src: 'assets/logos/ola-azul.png', alt: 'Ola Azul', h: 32, w: 221 },
     { src: 'assets/logos/maygel-coronel.png', alt: 'Maygel Coronel', h: 18, w: 279 },
     { src: 'assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 31, w: 266 },
@@ -68,6 +72,7 @@
         node.height = d.h;
         node.className = filterClass;
         node.alt = isDup ? '' : d.alt;
+        if (d.dy) node.style.transform = 'translateY(' + d.dy + 'px)';
         if (isDup) node.setAttribute('aria-hidden', 'true');
       }
       row.appendChild(node);
