@@ -238,10 +238,11 @@ h1, h2, h3 { margin: 0; }
 .highlights li:nth-child(5) { --i: 4; }
 .highlights li:nth-child(6) { --i: 5; }
 .highlights li:nth-child(7) { --i: 6; }
-/* align-self: start — the list runs taller than the image, and a stretched box would
-   leave dead space under a contained picture */
-.proof-media { position: relative; min-height: 520px; align-self: start; overflow: hidden; }
-.proof-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center top; }
+/* the media column matches the highlights column: the box stretches to the row
+   height and the picture covers it. The campaign image is 3:4 and the column runs
+   close to that, so the crop stays small — check it if the list length changes. */
+.proof-media { position: relative; min-height: 520px; align-self: stretch; overflow: hidden; }
+.proof-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
 .walls { margin-top: 90px; }
 .wall-label { margin: 0 0 30px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 253, 243, .68); }
@@ -348,6 +349,8 @@ h1, h2, h3 { margin: 0; }
   .proof-section { padding-top: 80px; padding-bottom: 72px; }
   .stats-grid { margin-top: 40px; }
   .proof-grid { margin-top: 48px; }
+  /* one column — nothing to match, so show the frame at its own ratio, uncropped */
+  .proof-media { min-height: 0; aspect-ratio: 3 / 4; }
   /* tighter connector indent so the text column keeps its measure */
   .highlights { padding-left: 40px; }
   .highlights li + li { margin-top: 26px; }
