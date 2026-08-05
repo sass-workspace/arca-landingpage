@@ -107,6 +107,13 @@ h1, h2, h3 { margin: 0; }
   font-size: clamp(40px, 4.6vw, 68px);
   color: var(--cream); text-wrap: balance;
 }
+/* keeps "international growth." off its own orphan line — worth a whole line of
+   headline. Released at the 900px breakpoint, where the hero collapses to one
+   column: the phrase is a 368px unbreakable token at 40px against ~346px of
+   available width, and an unbreakable token wider than its only column pushes the
+   whole page into horizontal scroll. Above 900px the two-column grid absorbs it by
+   narrowing the video side, so it never reaches the page. */
+.keep-together { white-space: nowrap; }
 .hero-sub { margin: 30px 0 0; max-width: 46ch; font-size: 16.5px; line-height: 1.65; color: rgba(255, 253, 243, .82); }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
 .hero-media { position: relative; min-height: 420px; overflow: hidden; }
@@ -186,14 +193,28 @@ h1, h2, h3 { margin: 0; }
 .stat p { margin: 12px 0 0; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 253, 243, .65); }
 
 .proof-grid { margin-top: 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-/* one rule under the eyebrow, then arrow-marked rows — eight hairlines would read as ledger paper */
-.highlights { margin: 0; padding: 26px 0 0; list-style: none; border-top: 1px solid rgba(255, 253, 243, .22); }
+/* connector treatment per the handoff: one spine, a branch arrow to each item —
+   the same 1px hairline vocabulary as the services connector lines */
+.highlights { margin: 8px 0 0; padding: 0 0 0 62px; list-style: none; }
 .highlights li {
-  display: grid; grid-template-columns: 22px 1fr; column-gap: 6px;
-  font-size: 15px; line-height: 1.7; color: rgba(255, 253, 243, .78);
+  position: relative;
+  font-size: 15px; line-height: 1.75; color: rgba(255, 253, 243, .78);
 }
-.highlights li + li { margin-top: 20px; }
-.highlights li::before { content: '→'; color: rgba(255, 253, 243, .5); }
+.highlights li + li { margin-top: 32px; }
+/* spine, drawn per item so the segments butt together across the gap and the run
+   starts at the first branch and stops at the last — not at the last line of text */
+.highlights li::before {
+  content: ''; position: absolute; left: -62px; top: 0; width: 1px;
+  height: calc(100% + 32px); background: rgba(255, 253, 243, .32);
+}
+.highlights li:first-child::before { top: .85em; height: calc(100% - .85em + 32px); }
+.highlights li:last-child::before { height: .85em; }
+/* branch + arrowhead */
+.highlights li::after {
+  content: ''; position: absolute; left: -62px; top: calc(.85em - 4.5px);
+  width: 42px; height: 9px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='42' height='9'><path d='M0 4.5H40M36.5 1.5L39.5 4.5 36.5 7.5' fill='none' stroke='%23FFFDF3' stroke-opacity='0.32'/></svg>") no-repeat left center;
+}
 /* align-self: start — the list runs taller than the image, and a stretched box would
    leave dead space under a contained picture */
 .proof-media { position: relative; min-height: 520px; align-self: start; overflow: hidden; }
@@ -304,12 +325,19 @@ h1, h2, h3 { margin: 0; }
   .proof-section { padding-top: 80px; padding-bottom: 72px; }
   .stats-grid { margin-top: 40px; }
   .proof-grid { margin-top: 48px; }
+  /* tighter connector indent so the text column keeps its measure */
+  .highlights { padding-left: 40px; }
+  .highlights li + li { margin-top: 26px; }
+  .highlights li::before { left: -40px; height: calc(100% + 26px); }
+  .highlights li:first-child::before { height: calc(100% - .85em + 26px); }
+  .highlights li::after { left: -40px; width: 28px; background-size: 28px 9px; }
   .walls { margin-top: 64px; }
   .steps-section { padding-bottom: 80px; }
   .steps-grid { margin-top: 40px; }
   .contact-section { padding-top: 80px; padding-bottom: 72px; }
   .contact-form { margin-top: 40px; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; }
+  .keep-together { white-space: normal; } /* one column — nothing left to absorb it */
   .hero-copy { padding: 96px 22px 48px; }
   .hero-media { display: none; }
   .problem-grid, .proof-grid, .founder-grid, .contact-form { grid-template-columns: 1fr; gap: 44px; }
