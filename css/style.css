@@ -333,10 +333,13 @@ h1, h2, h3 { margin: 0; }
 [data-rv].rv-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   [data-rv] { opacity: 1; transform: none; transition: none; }
-  .marquee { animation: none; }
   /* connector ships fully drawn rather than stuck at zero */
   .highlights li::before { transform: none; transition: none; }
   .highlights li::after { clip-path: none; transition: none; }
+  /* The marquees deliberately do NOT stop here — client decision, Aug 2026. They
+     used to, which is the accessible behaviour: continuous looping motion is a
+     vestibular trigger. Everything else on the page still honours the setting.
+     Do not "fix" this back without asking. */
 }
 
 /* ---------- responsive (per prototype data-m rules) ---------- */

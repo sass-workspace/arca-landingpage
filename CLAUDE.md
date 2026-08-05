@@ -85,7 +85,10 @@ update `CONTACT_FROM` in `src/worker.js`.
   (rAF, cancelled by any wheel/touch/key). Do not reintroduce it.
   The horizontal card rails ≤900px keep `scroll-snap-type: x mandatory`
 - Reveals: `[data-rv]` fade-up once (26px / .8s, threshold .12)
-- Marquees: 32s/42s/38s-reverse, 2× duplicated rows, never pause
+- Marquees: 32s/42s/38s-reverse, 2× duplicated rows, never pause — and, by
+  client decision (Aug 2026), they keep running under
+  `prefers-reduced-motion: reduce` too. That is a deliberate a11y exception,
+  not an oversight; every other animation on the page still honours it
 - Collection video plays ONCE when centered in viewport (±25% innerHeight)
 - Services connector lines: L-shaped 1px divs, staggered draw-in
   (i×900ms, +500ms horizontal), redrawn on resize, desktop only
