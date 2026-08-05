@@ -33,7 +33,7 @@ css/style.css       landing tokens, components, responsive (900px / 560px)
 css/brand.css       guidelines page styles
 js/site.js          marquees, reveals, connector lines, video triggers, form
 src/worker.js       serves assets + POST /api/contact → email
-assets/logos/       20 client/press marks + arca-wordmark-cream.png
+assets/logos/       22 client/press marks + arca-wordmark-cream.png
                     (glyph heights: header 15/13px, footer 18px; never the
                     badge version, never in a container shape)
 assets/buyers/      12 buyer marks — the cleaned .png set only
@@ -64,7 +64,9 @@ update `CONTACT_FROM` in `src/worker.js`.
 
 - **Arca Blue `#08177E`** · **Arca Cream `#FFFDF3`** (never pure white on
   blue) · Card Cream `#FCFBF4` · TODO Yellow `#F7C948` (never ships)
-- Cormorant Garamond (display) + DM Sans (text/UI); five type sizes
+- Cormorant Garamond (display) + DM Sans (text/UI); five type sizes. All display
+  headings share `--ls-display` / `--lh-display` — never set tracking or leading
+  per heading, that is what drifted and got flagged in review
 - One button style (cream pill); no drop shadows except the header bar
 - Logos rendered monochrome via CSS filters (`--f-cream`, `--f-blue`);
   sources are black-on-transparent, sized optically (each height in site.js)
@@ -72,7 +74,11 @@ update `CONTACT_FROM` in `src/worker.js`.
 
 ## Motion (implemented per prototype)
 
-- Scroll-snap `y mandatory` desktop, **disabled ≤900px**
+- **No vertical section snap.** Both the CSS scroll-snap and the later JS
+  snap-assist were removed after client review — settling near a section edge
+  pulled the page back and read as bouncing. Only anchor clicks are eased
+  (rAF, cancelled by any wheel/touch/key). Do not reintroduce it.
+  The horizontal card rails ≤900px keep `scroll-snap-type: x mandatory`
 - Reveals: `[data-rv]` fade-up once (26px / .8s, threshold .12)
 - Marquees: 32s/42s/38s-reverse, 2× duplicated rows, never pause
 - Collection video plays ONCE when centered in viewport (±25% innerHeight)
@@ -92,9 +98,10 @@ excepted — their focus state is the underline per spec).
 ## Content rules
 
 - Copy is source-of-truth from the handoff — never rewrite or "improve"
-- Unconfirmed content ships as visible chips on `#F7C948`: three founder
-  `[[placeholders]]`, Isobelle `[[surname/role]]`, one Francques TODO —
-  resolve or remove before launch, never silently
+- Unconfirmed content ships as visible `.chip-todo` chips on `#F7C948` — resolve
+  or remove before launch, never silently. **None on the page right now** — the
+  founder `[[placeholders]]` and the six missing client logos are all resolved.
+  Keep `.chip-todo` in the CSS; it is the convention for the next gap.
 - No invented clients/numbers/testimonials; no emoji; no exclamation marks
 - Banned words: elevate, unlock, seamless, empower, transform your brand
 
@@ -117,8 +124,14 @@ excepted — their focus state is the underline per spec).
 
 ## Open before launch
 
-1. Founder placeholders + Isobelle role + Francques claim (ask Honor)
-2. Onboard arca-consultancy.com for email + custom domain routing
-3. Third-party logo permissions: client/buyer/press marks belong to their
-   owners — Honor confirmed use (Aug 2026), keep the paper trail
-4. ES version (toggles are UI-only)
+1. Onboard arca-consultancy.com for email + custom domain routing
+2. ES version (toggles are UI-only)
+
+Third-party logo permissions: client/buyer/press marks belong to their owners —
+Honor confirmed use for the full current set including the five marks added in
+the Aug 2026 round (Valentina Quintero, Maygel Coronel, Soloio, Casabela,
+kibys). Keep the paper trail.
+
+Note on `collection-animate.mp4`: it is a baked video with no editable source in
+the handoff — any text change in that diagram means a re-export from the designer,
+not a code edit. (It read "Buyers" until the Aug 2026 re-export to "Orders".)

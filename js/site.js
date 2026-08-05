@@ -2,44 +2,51 @@
 (function () {
   'use strict';
 
-  /* ------- logo rows (marquees; sources are black-on-transparent, recolored via CSS filter) ------- */
+  /* ------- logo rows (marquees; sources are black-on-transparent, recolored via CSS filter)
+     h/w are the rendered box: h is set by optical mass (see /brand/ §04), w is h × the
+     file's natural aspect. Both are written as attributes so the row reserves its width
+     before the images decode — otherwise width:max-content and the translateX(-50%) loop
+     both shift as logos land, which reads as a misaligned strip on first paint.
+     A def with `label` instead of `src` renders a TODO chip for a logo we don't have yet. ------- */
   var clients = [
-    { src: 'assets/logos/ser-cream.png', alt: 'SER', h: 46 },
-    { src: 'assets/logos/miale.png', alt: 'Mialé', h: 38 },
-    { src: 'assets/logos/mai-petit-cream2.png', alt: 'Mai Petit', h: 48 },
-    { src: 'assets/logos/ola-azul.png', alt: 'Ola Azul', h: 32 },
-    { src: 'assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 22 },
-    { src: 'assets/logos/bahama-mama.png', alt: 'Bahama Mama', h: 21 },
-    { src: 'assets/logos/francques-cream.png', alt: 'Francques', h: 26 },
-    { src: 'assets/logos/andres-pajon.svg', alt: 'Andrés Pajón', h: 30 },
-    { src: 'assets/logos/lululemon.png', alt: 'lululemon', h: 34 },
-    { src: 'assets/logos/pitusa.png', alt: 'Pitusa', h: 30 },
-    { src: 'assets/logos/reina-olga.png', alt: 'Reina Olga', h: 36 },
-    { src: 'assets/logos/agua-by-agua-bendita.png', alt: 'Agua by Agua Bendita', h: 46 },
-    { src: 'assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 34 }
+    { src: 'assets/logos/ser-cream.png', alt: 'SER', h: 46, w: 73 },
+    { src: 'assets/logos/mai-petit.svg', alt: 'Mai Petit', h: 22, w: 178 },
+    { src: 'assets/logos/miale.png', alt: 'Mialé', h: 38, w: 146 },
+    { src: 'assets/logos/valentina-quintero.png', alt: 'Valentina Quintero', h: 22, w: 194 },
+    { src: 'assets/logos/ola-azul.png', alt: 'Ola Azul', h: 32, w: 221 },
+    { src: 'assets/logos/maygel-coronel.png', alt: 'Maygel Coronel', h: 18, w: 279 },
+    { src: 'assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 31, w: 266 },
+    { src: 'assets/logos/francques-cream.png', alt: 'Francques', h: 26, w: 192 },
+    { src: 'assets/logos/soloio.png', alt: 'Soloio', h: 26, w: 107 },
+    { src: 'assets/logos/andres-pajon.svg', alt: 'Andrés Pajón', h: 30, w: 169 },
+    { src: 'assets/logos/kibys.png', alt: 'kibys', h: 38, w: 39 },
+    { src: 'assets/logos/lululemon.png', alt: 'lululemon', h: 34, w: 131 },
+    { src: 'assets/logos/pitusa.png', alt: 'Pitusa', h: 30, w: 104 },
+    { src: 'assets/logos/casabela.png', alt: 'Casabela', h: 26, w: 165 },
+    { src: 'assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 38, w: 234 }
   ];
   var press = [
-    { src: 'assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 42 },
-    { src: 'assets/logos/marie-claire.png', alt: 'Marie Claire Colombia', h: 32 },
-    { src: 'assets/logos/cult-mia.png', alt: 'Cult Mia', h: 36 },
-    { src: 'assets/logos/colombiamoda-cream.png', alt: 'Colombiamoda', h: 44 },
-    { src: 'assets/logos/inexmoda.svg', alt: 'Inexmoda', h: 38 },
-    { src: 'assets/logos/fgi-colombia.png', alt: 'FGI Colombia', h: 44 },
-    { src: 'assets/logos/premiere-vision-cream.png', alt: 'Première Vision Paris', h: 34 }
+    { src: 'assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 42, w: 179 },
+    { src: 'assets/logos/marie-claire.png', alt: 'Marie Claire Colombia', h: 32, w: 186 },
+    { src: 'assets/logos/cult-mia.png', alt: 'Cult Mia', h: 36, w: 173 },
+    { src: 'assets/logos/colombiamoda-cream.png', alt: 'Colombiamoda', h: 44, w: 298 },
+    { src: 'assets/logos/inexmoda.svg', alt: 'Inexmoda', h: 38, w: 174 },
+    { src: 'assets/logos/fgi-colombia.png', alt: 'FGI Colombia', h: 44, w: 44 },
+    { src: 'assets/logos/premiere-vision-cream.png', alt: 'Première Vision Paris', h: 34, w: 88 }
   ];
   var buyers = [
-    { src: 'assets/buyers/net-a-porter.png', alt: 'Net-A-Porter', h: 22 },
-    { src: 'assets/buyers/harrods.png', alt: 'Harrods', h: 36 },
-    { src: 'assets/buyers/selfridges.png', alt: 'Selfridges', h: 26 },
-    { src: 'assets/buyers/liberty-london.png', alt: 'Liberty', h: 26 },
-    { src: 'assets/buyers/kith.png', alt: 'KITH', h: 34 },
-    { src: 'assets/buyers/mytheresa.png', alt: 'MyTheresa', h: 24 },
-    { src: 'assets/buyers/moda-operandi.png', alt: 'Moda Operandi', h: 20 },
-    { src: 'assets/buyers/harvey-nichols.png', alt: 'Harvey Nichols', h: 22 },
-    { src: 'assets/buyers/printemps.png', alt: 'Printemps', h: 26 },
-    { src: 'assets/buyers/le-bon-marche-mono.png', alt: 'Le Bon Marché', h: 40 },
-    { src: 'assets/buyers/galeries-lafayette.png', alt: 'Galeries Lafayette', h: 36 },
-    { src: 'assets/buyers/revolve.png', alt: 'Revolve', h: 26 }
+    { src: 'assets/buyers/net-a-porter.png', alt: 'Net-A-Porter', h: 22, w: 270 },
+    { src: 'assets/buyers/harrods.png', alt: 'Harrods', h: 36, w: 83 },
+    { src: 'assets/buyers/selfridges.png', alt: 'Selfridges', h: 26, w: 165 },
+    { src: 'assets/buyers/liberty-london.png', alt: 'Liberty', h: 26, w: 160 },
+    { src: 'assets/buyers/kith.png', alt: 'KITH', h: 34, w: 80 },
+    { src: 'assets/buyers/mytheresa.png', alt: 'MyTheresa', h: 24, w: 193 },
+    { src: 'assets/buyers/moda-operandi.png', alt: 'Moda Operandi', h: 20, w: 338 },
+    { src: 'assets/buyers/harvey-nichols.png', alt: 'Harvey Nichols', h: 22, w: 273 },
+    { src: 'assets/buyers/printemps.png', alt: 'Printemps', h: 26, w: 217 },
+    { src: 'assets/buyers/le-bon-marche-mono.png', alt: 'Le Bon Marché', h: 40, w: 39 },
+    { src: 'assets/buyers/galeries-lafayette.png', alt: 'Galeries Lafayette', h: 36, w: 69 },
+    { src: 'assets/buyers/revolve.png', alt: 'Revolve', h: 26, w: 173 }
   ];
 
   // rows are duplicated 2× so the translateX(-50%) loop is seamless
@@ -47,17 +54,23 @@
     var row = document.getElementById(id);
     if (!row) return;
     defs.concat(defs).forEach(function (d, i) {
-      var img = document.createElement('img');
-      img.src = d.src;
-      img.style.height = d.h + 'px';
-      img.className = filterClass;
-      if (i < defs.length) {
-        img.alt = d.alt;
+      var isDup = i >= defs.length;         // seamless-loop copy: hidden from screen readers
+      var node;
+      if (d.label) {
+        node = document.createElement('span');
+        node.className = 'chip-todo';       // never filterClass — the filters start with
+        node.textContent = d.label;         // brightness(0) and would flatten the yellow
+        if (isDup) node.setAttribute('aria-hidden', 'true');
       } else {
-        img.alt = '';                       // seamless-loop duplicate:
-        img.setAttribute('aria-hidden', 'true'); // hidden from screen readers
+        node = document.createElement('img');
+        node.src = d.src;
+        node.width = d.w;
+        node.height = d.h;
+        node.className = filterClass;
+        node.alt = isDup ? '' : d.alt;
+        if (isDup) node.setAttribute('aria-hidden', 'true');
       }
-      row.appendChild(img);
+      row.appendChild(node);
     });
   }
   fillRow('client-row-blue', clients, 'logo-blue');
@@ -164,9 +177,11 @@
     rvEls.forEach(function (el) { el.classList.add('rv-in'); });
   }
 
-  /* ------- smooth scroll engine: eased anchors + gentle section snap-assist -------
-     Replaces CSS scroll-snap (mandatory felt abrupt, and Safari's native snap
-     fights momentum). Pure rAF easing — identical feel in Chrome and Safari. */
+  /* ------- smooth scroll engine: eased anchor navigation only -------
+     Section snapping (CSS scroll-snap, then a JS snap-assist) was removed after
+     review: settling near a section edge pulled the page back, which read as the
+     scroll bouncing. Free scrolling now; only nav clicks are animated.
+     Pure rAF easing — identical feel in Chrome and Safari. */
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var animId = null;
 
@@ -207,35 +222,6 @@
     });
   });
 
-  // snap-assist: when scrolling settles near a section edge, glide to it.
-  // Desktop AND mobile; with reduced-motion the snap still happens, just without easing.
-  var snapTimer = null;
-  var snapTargets = function () {
-    return Array.prototype.map.call(
-      document.querySelectorAll('main > section:not(.client-strip), footer'),
-      function (el) { return el.offsetTop; } // layout position — reveal transforms don't skew it
-    );
-  };
-  var trySnap = function () {
-    if (animId) return;
-    var y = window.pageYOffset;
-    var isMobile = window.innerWidth <= 900;
-    var win = window.innerHeight * (isMobile ? 0.35 : 0.42); // catch window around section edges
-    var best = null, bestDist = win;
-    snapTargets().forEach(function (t) {
-      var d = Math.abs(t - y);
-      if (d < bestDist) { best = t; bestDist = d; }
-    });
-    if (best !== null && bestDist > 2) {
-      if (reducedMotion) { window.scrollTo(0, best); }
-      else { animateScrollTo(best, Math.max(380, Math.min(750, bestDist * 1.2))); }
-    }
-  };
-  window.addEventListener('scroll', function () {
-    if (animId) return;                     // our own animation — leave it alone
-    clearTimeout(snapTimer);
-    snapTimer = setTimeout(trySnap, 120);
-  }, { passive: true });
   // any fresh user intent cancels an in-flight glide immediately
   ['wheel', 'touchstart', 'keydown'].forEach(function (evt) {
     window.addEventListener(evt, cancelScrollAnim, { passive: true });
