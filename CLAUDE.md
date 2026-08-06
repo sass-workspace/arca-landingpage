@@ -34,11 +34,13 @@ css/style.css       landing tokens, components, responsive (900px / 560px)
 css/brand.css       guidelines page styles
 js/site.js          marquees, reveals, connector lines, video triggers, form
 src/worker.js       serves assets + POST /api/contact → email
+robots.txt          allows all, disallows /brand/, points at the sitemap
+sitemap.xml         both language URLs with reciprocal hreflang alternates
 assets/logos/       22 client/press marks + arca-wordmark-cream.png
                     (glyph heights: header 15/13px, footer 18px; never the
                     badge version, never in a container shape)
 assets/buyers/      12 buyer marks — the cleaned .png set only
-assets/images/      2 videos, portrait, campaign image, grain tile
+assets/images/      2 videos, portrait (jpg), campaign image, grain tile
 favicon/            16/32/48/180/192/512 PNG set (cream wordmark on blue)
 social/             og-image-en.png / og-image-es.png (1200×630)
 site.webmanifest    PWA manifest (theme #08177E)
@@ -151,10 +153,19 @@ excepted — their focus state is the underline per spec).
 
 ## Future adjustments — do not forget
 
-- **Domain switch (arca-consultancy.com):** update `og:url` + `og:image`
-  absolute URLs in index.html, `CONTACT_FROM` in src/worker.js, and run
-  `npx wrangler email sending enable arca-consultancy.com`. Add the custom
-  domain to the Worker.
+- **Domain switch (arca-consultancy.com)** — every absolute URL on the site is
+  `arca-landingpage.ms-45f.workers.dev`. One find-and-replace across the repo
+  catches them all; this is the checklist to verify afterwards:
+  - `index.html` and `es/index.html`: `og:url`, `og:image`, `canonical`, all
+    three `hreflang` links, and the **JSON-LD** block (`@id`, `url`, `logo`,
+    `image`)
+  - `robots.txt`: the `Sitemap:` line
+  - `sitemap.xml`: both `<loc>` and all six `<xhtml:link href>`
+  - `src/worker.js`: `CONTACT_FROM`, then run
+    `npx wrangler email sending enable arca-consultancy.com`
+  - Add the custom domain to the Worker
+  - Verify: `curl -s <domain>/sitemap.xml` and re-check the pair of pages still
+    reference each other reciprocally in `hreflang`
 - **/brand/ is the living CI sheet** — any change to colors, type, spacing,
   components or motion on the site MUST be mirrored on /brand/ in the same
   commit. If they diverge, /brand/ is wrong and the change was incomplete.

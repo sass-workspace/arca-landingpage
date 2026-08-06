@@ -1,0 +1,8 @@
+# Arca Consultancy
+# /brand/ is the internal CI sheet — it also carries <meta name="robots" content="noindex">.
+
+User-agent: *
+Allow: /
+Disallow: /brand/
+
+Sitemap: https://arca-landingpage.ms-45f.workers.dev/sitemap.xml
