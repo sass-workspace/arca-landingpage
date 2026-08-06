@@ -96,6 +96,34 @@
   fillRow('buyer-row', buyers, 'logo-cream');
   fillRow('press-row', press, 'logo-cream');
 
+  /* The loop is translateX(-50%) of the row's own width, and a composited animation
+     resolves that percentage ONCE, when it starts. The rows are empty in the markup
+     and filled here, so the animation can start against a near-zero width and latch a
+     travel distance of a few px — the strip then looks frozen until something forces a
+     re-composite (scrolling the page end to end was the reported workaround).
+     Restart the animations now that the rows have their real width, and again whenever
+     that width changes: the gap drops 80 → 52 → 40px across the breakpoints, so a
+     resize past one otherwise leaves the loop travelling the wrong distance. */
+  var lastRowWidth = 0;
+  function syncMarquees() {
+    var rows = document.querySelectorAll('.marquee');
+    if (!rows.length) return;
+    var w = rows[0].scrollWidth;
+    if (w === lastRowWidth) return;
+    lastRowWidth = w;
+    Array.prototype.forEach.call(rows, function (row) {
+      row.style.animation = 'none';
+      void row.offsetWidth;              // force layout so the new width is committed
+      row.style.animation = '';          // hand it back to the class, restarted
+    });
+  }
+  syncMarquees();
+  var marqueeResizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(marqueeResizeTimer);
+    marqueeResizeTimer = setTimeout(syncMarquees, 200);
+  });
+
   /* ------- collection video: play once when vertically centered in viewport, no replay ------- */
   var cv = document.getElementById('collection-video');
   if (cv) {
