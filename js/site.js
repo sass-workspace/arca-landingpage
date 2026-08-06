@@ -39,13 +39,13 @@
     { src: '/assets/logos/kibys.png', alt: 'kibys', h: 31, w: 31 },                // monogram
     { src: '/assets/logos/lululemon.png', alt: 'lululemon', h: 40, w: 155, dy: -2 }, // symbol lockup
     { src: '/assets/logos/pitusa.png', alt: 'Pitusa', h: 32, w: 111 },
+    { src: '/assets/logos/splash.png', alt: 'Splash', h: 20, w: 181 },
     { src: '/assets/logos/casabela.png', alt: 'Casabela', h: 20, w: 127 },
     { src: '/assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 49, w: 302 } // width-clamped
   ];
   var press = [
     { src: '/assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 36, w: 154, dy: 9 },
     { src: '/assets/logos/marie-claire.png', alt: 'Marie Claire Colombia', h: 32, w: 186, dy: -3 },
-    { src: '/assets/logos/cult-mia.png', alt: 'Cult Mia', h: 20, w: 96 },
     { src: '/assets/logos/colombiamoda-cream.png', alt: 'Colombiamoda', h: 40, w: 271, dy: 7 },
     { src: '/assets/logos/inexmoda.svg', alt: 'Inexmoda', h: 37, w: 170, dy: 2 },
     { src: '/assets/logos/fgi-colombia.png', alt: 'FGI Colombia', h: 34, w: 34, dy: -6 }, // round badge
@@ -63,7 +63,8 @@
     { src: '/assets/buyers/printemps.png', alt: 'Printemps', h: 20, w: 167 },
     { src: '/assets/buyers/le-bon-marche-mono.png', alt: 'Le Bon Marché', h: 34, w: 33, dy: -5 }, // stacked
     { src: '/assets/buyers/galeries-lafayette.png', alt: 'Galeries Lafayette', h: 30, w: 58, dy: -2 },
-    { src: '/assets/buyers/revolve.png', alt: 'Revolve', h: 20, w: 133 }
+    { src: '/assets/buyers/revolve.png', alt: 'Revolve', h: 20, w: 133 },
+    { src: '/assets/logos/cult-mia.png', alt: 'Cult Mia', h: 20, w: 96 }  // retailer, not press
   ];
 
   // rows are duplicated 2× so the translateX(-50%) loop is seamless

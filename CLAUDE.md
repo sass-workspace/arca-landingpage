@@ -36,7 +36,7 @@ js/site.js          marquees, reveals, connector lines, video triggers, form
 src/worker.js       serves assets + POST /api/contact → email
 robots.txt          allows all, disallows /brand/, points at the sitemap
 sitemap.xml         both language URLs with reciprocal hreflang alternates
-assets/logos/       22 client/press marks + arca-wordmark-cream.png
+assets/logos/       23 client/press marks + arca-wordmark-cream.png
                     (glyph heights: header 15/13px, footer 18px; never the
                     badge version, never in a container shape)
 assets/buyers/      12 buyer marks — the cleaned .png set only
@@ -184,13 +184,16 @@ excepted — their focus state is the underline per spec).
 ## Open before launch
 
 1. Onboard arca-consultancy.com for email + custom domain routing
-2. **The Spanish copy has not had brand review.** `/es/` ships and the toggle
-   works, but the translation is ours, not Honor's — a native Latin American
-   fashion reader should pass over it before it is promoted. Specifically:
-   thousands are set Colombia-style (`3.000+`, not `3,000+`); "Destacados 2026"
-   for "2026 Highlights"; industry terms left in English on purpose (sourcing,
-   market week, fashion week, line sheets, sell-in, DTC, SKU, e-commerce,
-   pop-ups, showroom, retail). `social/og-image-es.png` is likewise unreviewed.
+2. **Decided, do not re-raise:** three of the seven 2026 Highlights restate the
+   numbers in the stats row directly above (600+, 2×, 60%). Kept deliberately —
+   the stats are the headline figures and the highlights explain them further.
+3. **Spanish copy: one client review pass done (Aug 2026)**, which corrected
+   wording, gender agreement and terminology. Standing conventions from that
+   pass: thousands are Colombia-style (`3.000+`); "retailers" not "retail" for
+   relationships; industry terms deliberately left in English (sourcing,
+   fashion week, swimwear, chainmail, line sheets, sell-in, DTC, SKU,
+   e-commerce, pop-ups, showroom). Not yet reviewed: `social/og-image-es.png`,
+   which still carries the pre-review hero wording.
 
 Third-party logo permissions: client/buyer/press marks belong to their owners —
 Honor confirmed use for the full current set including the five marks added in
