@@ -27,7 +27,8 @@ Static front-end + one Cloudflare Worker. No framework, no build step.
 Every file below is load-bearing — nothing unused is kept in the repo.
 
 ```
-index.html          landing page: seven sections + sticky header + footer
+index.html          landing page (EN): seven sections + sticky header + footer
+es/index.html       the same page in Latin American Spanish, served at /es/
 brand/index.html    brand guidelines & CI sheet (/brand/, noindex)
 css/style.css       landing tokens, components, responsive (900px / 560px)
 css/brand.css       guidelines page styles
@@ -50,7 +51,16 @@ Local dev: `npx wrangler dev` (form works) or `python3 -m http.server`
 
 Rule: when adding an asset, reference it or don't commit it. When removing
 a feature, remove its files. Re-run the unused check before big commits:
-every file in assets/ must be greppable from index.html/brand/css/js/src.
+every file in assets/ must be greppable from index.html/es/brand/css/js/src.
+
+**Asset paths are root-absolute** (`/css/…`, `/js/…`, `/assets/…`), in the
+markup and in `js/site.js`. They have to be — relative paths resolve against
+`/es/` and 404. Never reintroduce a relative one.
+
+**i18n is two hand-maintained pages, no build step.** A copy change must be
+made in both `index.html` and `es/index.html`, or the languages drift. The
+only user-facing strings in JS are the two contact-form results, in the `COPY`
+map in `js/site.js`, keyed off `<html lang>`.
 
 ## Form backend
 
@@ -133,7 +143,13 @@ excepted — their focus state is the underline per spec).
 ## Open before launch
 
 1. Onboard arca-consultancy.com for email + custom domain routing
-2. ES version (toggles are UI-only)
+2. **The Spanish copy has not had brand review.** `/es/` ships and the toggle
+   works, but the translation is ours, not Honor's — a native Latin American
+   fashion reader should pass over it before it is promoted. Specifically:
+   thousands are set Colombia-style (`3.000+`, not `3,000+`); "Destacados 2026"
+   for "2026 Highlights"; industry terms left in English on purpose (sourcing,
+   market week, fashion week, line sheets, sell-in, DTC, SKU, e-commerce,
+   pop-ups, showroom, retail). `social/og-image-es.png` is likewise unreviewed.
 
 Third-party logo permissions: client/buyer/press marks belong to their owners —
 Honor confirmed use for the full current set including the five marks added in

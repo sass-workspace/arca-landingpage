@@ -26,44 +26,44 @@
      A def with `label` instead of `src` renders a TODO chip for a logo we don't have yet.
      Re-measure with the cap-band sweep before changing any of these numbers. ------- */
   var clients = [
-    { src: 'assets/logos/ser-cream.png', alt: 'SER', h: 30, w: 48, dy: 4 },       // tagline below
-    { src: 'assets/logos/mai-petit.svg', alt: 'Mai Petit', h: 19, w: 155 },
-    { src: 'assets/logos/miale.png', alt: 'Mialé', h: 27, w: 104, dy: -4 },       // é accent above
-    { src: 'assets/logos/valentina-quintero.png', alt: 'Valentina Quintero', h: 32, w: 282, dy: 3 },
-    { src: 'assets/logos/ola-azul.png', alt: 'Ola Azul', h: 20, w: 138 },
-    { src: 'assets/logos/maygel-coronel.png', alt: 'Maygel Coronel', h: 19, w: 295 },
-    { src: 'assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 35, w: 300 }, // width-clamped
-    { src: 'assets/logos/francques-cream.png', alt: 'Francques', h: 20, w: 148 },
-    { src: 'assets/logos/soloio.png', alt: 'Soloio', h: 26, w: 107, dy: -3 },
-    { src: 'assets/logos/andres-pajon.svg', alt: 'Andrés Pajón', h: 28, w: 158, dy: 3 }, // signature
-    { src: 'assets/logos/kibys.png', alt: 'kibys', h: 31, w: 31 },                // monogram
-    { src: 'assets/logos/lululemon.png', alt: 'lululemon', h: 40, w: 155, dy: -2 }, // symbol lockup
-    { src: 'assets/logos/pitusa.png', alt: 'Pitusa', h: 32, w: 111 },
-    { src: 'assets/logos/casabela.png', alt: 'Casabela', h: 20, w: 127 },
-    { src: 'assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 49, w: 302 } // width-clamped
+    { src: '/assets/logos/ser-cream.png', alt: 'SER', h: 30, w: 48, dy: 4 },       // tagline below
+    { src: '/assets/logos/mai-petit.svg', alt: 'Mai Petit', h: 19, w: 155 },
+    { src: '/assets/logos/miale.png', alt: 'Mialé', h: 27, w: 104, dy: -4 },       // é accent above
+    { src: '/assets/logos/valentina-quintero.png', alt: 'Valentina Quintero', h: 32, w: 282, dy: 3 },
+    { src: '/assets/logos/ola-azul.png', alt: 'Ola Azul', h: 20, w: 138 },
+    { src: '/assets/logos/maygel-coronel.png', alt: 'Maygel Coronel', h: 19, w: 295 },
+    { src: '/assets/logos/cristian-tula.png', alt: 'Cristian Tula', h: 35, w: 300 }, // width-clamped
+    { src: '/assets/logos/francques-cream.png', alt: 'Francques', h: 20, w: 148 },
+    { src: '/assets/logos/soloio.png', alt: 'Soloio', h: 26, w: 107, dy: -3 },
+    { src: '/assets/logos/andres-pajon.svg', alt: 'Andrés Pajón', h: 28, w: 158, dy: 3 }, // signature
+    { src: '/assets/logos/kibys.png', alt: 'kibys', h: 31, w: 31 },                // monogram
+    { src: '/assets/logos/lululemon.png', alt: 'lululemon', h: 40, w: 155, dy: -2 }, // symbol lockup
+    { src: '/assets/logos/pitusa.png', alt: 'Pitusa', h: 32, w: 111 },
+    { src: '/assets/logos/casabela.png', alt: 'Casabela', h: 20, w: 127 },
+    { src: '/assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 49, w: 302 } // width-clamped
   ];
   var press = [
-    { src: 'assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 36, w: 154, dy: 9 },
-    { src: 'assets/logos/marie-claire.png', alt: 'Marie Claire Colombia', h: 32, w: 186, dy: -3 },
-    { src: 'assets/logos/cult-mia.png', alt: 'Cult Mia', h: 20, w: 96 },
-    { src: 'assets/logos/colombiamoda-cream.png', alt: 'Colombiamoda', h: 40, w: 271, dy: 7 },
-    { src: 'assets/logos/inexmoda.svg', alt: 'Inexmoda', h: 37, w: 170, dy: 2 },
-    { src: 'assets/logos/fgi-colombia.png', alt: 'FGI Colombia', h: 34, w: 34, dy: -6 }, // round badge
-    { src: 'assets/logos/premiere-vision-cream.png', alt: 'Première Vision Paris', h: 21, w: 54 }
+    { src: '/assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 36, w: 154, dy: 9 },
+    { src: '/assets/logos/marie-claire.png', alt: 'Marie Claire Colombia', h: 32, w: 186, dy: -3 },
+    { src: '/assets/logos/cult-mia.png', alt: 'Cult Mia', h: 20, w: 96 },
+    { src: '/assets/logos/colombiamoda-cream.png', alt: 'Colombiamoda', h: 40, w: 271, dy: 7 },
+    { src: '/assets/logos/inexmoda.svg', alt: 'Inexmoda', h: 37, w: 170, dy: 2 },
+    { src: '/assets/logos/fgi-colombia.png', alt: 'FGI Colombia', h: 34, w: 34, dy: -6 }, // round badge
+    { src: '/assets/logos/premiere-vision-cream.png', alt: 'Première Vision Paris', h: 21, w: 54 }
   ];
   var buyers = [
-    { src: 'assets/buyers/net-a-porter.png', alt: 'Net-A-Porter', h: 20, w: 245 },
-    { src: 'assets/buyers/harrods.png', alt: 'Harrods', h: 41, w: 94, dy: -6 },
-    { src: 'assets/buyers/selfridges.png', alt: 'Selfridges', h: 20, w: 127 },
-    { src: 'assets/buyers/liberty-london.png', alt: 'Liberty', h: 20, w: 123 },
-    { src: 'assets/buyers/kith.png', alt: 'KITH', h: 19, w: 45 },
-    { src: 'assets/buyers/mytheresa.png', alt: 'MyTheresa', h: 20, w: 161 },
-    { src: 'assets/buyers/moda-operandi.png', alt: 'Moda Operandi', h: 18, w: 304 },
-    { src: 'assets/buyers/harvey-nichols.png', alt: 'Harvey Nichols', h: 22, w: 273 },
-    { src: 'assets/buyers/printemps.png', alt: 'Printemps', h: 20, w: 167 },
-    { src: 'assets/buyers/le-bon-marche-mono.png', alt: 'Le Bon Marché', h: 34, w: 33, dy: -5 }, // stacked
-    { src: 'assets/buyers/galeries-lafayette.png', alt: 'Galeries Lafayette', h: 30, w: 58, dy: -2 },
-    { src: 'assets/buyers/revolve.png', alt: 'Revolve', h: 20, w: 133 }
+    { src: '/assets/buyers/net-a-porter.png', alt: 'Net-A-Porter', h: 20, w: 245 },
+    { src: '/assets/buyers/harrods.png', alt: 'Harrods', h: 41, w: 94, dy: -6 },
+    { src: '/assets/buyers/selfridges.png', alt: 'Selfridges', h: 20, w: 127 },
+    { src: '/assets/buyers/liberty-london.png', alt: 'Liberty', h: 20, w: 123 },
+    { src: '/assets/buyers/kith.png', alt: 'KITH', h: 19, w: 45 },
+    { src: '/assets/buyers/mytheresa.png', alt: 'MyTheresa', h: 20, w: 161 },
+    { src: '/assets/buyers/moda-operandi.png', alt: 'Moda Operandi', h: 18, w: 304 },
+    { src: '/assets/buyers/harvey-nichols.png', alt: 'Harvey Nichols', h: 22, w: 273 },
+    { src: '/assets/buyers/printemps.png', alt: 'Printemps', h: 20, w: 167 },
+    { src: '/assets/buyers/le-bon-marche-mono.png', alt: 'Le Bon Marché', h: 34, w: 33, dy: -5 }, // stacked
+    { src: '/assets/buyers/galeries-lafayette.png', alt: 'Galeries Lafayette', h: 30, w: 58, dy: -2 },
+    { src: '/assets/buyers/revolve.png', alt: 'Revolve', h: 20, w: 133 }
   ];
 
   // rows are duplicated 2× so the translateX(-50%) loop is seamless
@@ -245,7 +245,15 @@
     window.addEventListener(evt, cancelScrollAnim, { passive: true });
   });
 
-  /* ------- contact form → POST /api/contact (Cloudflare Worker → honor@arca-consultancy.com) ------- */
+  /* ------- contact form → POST /api/contact (Cloudflare Worker → honor@arca-consultancy.com) -------
+     The only user-facing strings in JS. Everything else is in the markup, so a new
+     language means a new page plus two entries here. */
+  var COPY = {
+    en: { sent: 'Received — we’ll be in touch', retry: 'Send — try again' },
+    es: { sent: 'Recibido — nos pondremos en contacto', retry: 'Enviar — intenta de nuevo' }
+  };
+  var t = COPY[(document.documentElement.lang || 'en').slice(0, 2)] || COPY.en;
+
   var form = document.getElementById('contact-form');
   if (form) {
     var sent = false;
@@ -268,10 +276,10 @@
       }).then(function (res) {
         if (!res.ok) throw new Error('send failed');
         sent = true;
-        btn.textContent = 'Received — we’ll be in touch';
+        btn.textContent = t.sent;
       }).catch(function () {
         btn.disabled = false;
-        btn.textContent = 'Send — try again';
+        btn.textContent = t.retry;
       });
     });
   }
