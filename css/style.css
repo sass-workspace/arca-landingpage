@@ -126,8 +126,16 @@ h1, h2, h3 { margin: 0; }
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-/* fixed height so the band doesn't resize with whichever mark happens to be tallest */
-.marquee { display: flex; align-items: center; height: 56px; gap: 80px; width: max-content; padding-right: 80px; }
+/* fixed height so the band doesn't resize with whichever mark happens to be tallest.
+   will-change pins the row to its own compositor layer: it animates inside a parent
+   carrying mask-image, which can disqualify the transform from the compositor and
+   drop it onto the main thread, where ordinary jank reads as the strip being frozen.
+   ~1.3MB a row, four rows, and they animate for the life of the page — cheap. */
+.marquee {
+  display: flex; align-items: center; height: 56px; gap: 80px;
+  width: max-content; padding-right: 80px;
+  will-change: transform;
+}
 .marquee img { flex: none; }
 .marquee-32 { animation: arca-marquee 32s linear infinite; }
 .marquee-38 { animation: arca-marquee 38s linear infinite; }

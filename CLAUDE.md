@@ -98,7 +98,13 @@ update `CONTACT_FROM` in `src/worker.js`.
 - Marquees: 32s/42s/38s-reverse, 2× duplicated rows, never pause — and, by
   client decision (Aug 2026), they keep running under
   `prefers-reduced-motion: reduce` too. That is a deliberate a11y exception,
-  not an oversight; every other animation on the page still honours it
+  not an oversight; every other animation on the page still honours it.
+  `.marquee` carries `will-change: transform` on purpose: the row animates
+  inside a `mask-image` parent, which can disqualify the transform from the
+  compositor and drop it to the main thread, where jank reads as a frozen
+  strip. Do not remove it. The `-50%` loop is only seamless because
+  `padding-right` supplies the trailing gap for the second set — half the
+  row width must equal exactly one content set
 - Collection video plays ONCE when centered in viewport (±25% innerHeight)
 - Services connector lines: L-shaped 1px divs, staggered draw-in
   (i×900ms, +500ms horizontal), redrawn on resize, desktop only
@@ -115,6 +121,26 @@ excepted — their focus state is the underline per spec).
 
 ## Content rules
 
+- **The site is bilingual. Every content change ships in both languages, in the
+  same commit.** `index.html` (EN) and `es/index.html` (ES) are hand-maintained
+  twins — there is no build step and nothing generates one from the other. If
+  you edit a sentence, add or delete a list item, retitle a heading, swap an
+  image, change an `alt`, or touch a meta tag in one file, make the matching
+  change in the other *before* you commit. A change that lands in one language
+  only is not half done, it is broken: the toggle puts the two pages one click
+  apart and the gap is immediately visible to the client.
+  - **Must stay identical:** section order and IDs (`#top`, `#about`,
+    `#services`, `#work`, `#contact`), every class the CSS or JS targets, the
+    number of `.highlights` items (the connector stagger has one `--i` rule per
+    item in `css/style.css`), form field `name`s (the Worker reads them by
+    name), and asset paths.
+  - **Intentionally different:** `<html lang>`, `<title>`, meta description,
+    `og:locale` / `og:url` / `og:image`, `canonical`, which side of the toggle
+    is the link, and `.keep-together` — EN only, because the Spanish headline
+    is too long to pin (see the comment in `es/index.html`).
+  - User-facing strings in JS live in the `COPY` map in `js/site.js`, keyed off
+    `<html lang>`. A new string there needs an entry per language.
+  - Spanish is **Latin American** Spanish, not Castilian. No `vosotros`.
 - Copy is source-of-truth from the handoff — never rewrite or "improve"
 - Unconfirmed content ships as visible `.chip-todo` chips on `#F7C948` — resolve
   or remove before launch, never silently. **None on the page right now** — the
@@ -132,11 +158,15 @@ excepted — their focus state is the underline per spec).
 - **/brand/ is the living CI sheet** — any change to colors, type, spacing,
   components or motion on the site MUST be mirrored on /brand/ in the same
   commit. If they diverge, /brand/ is wrong and the change was incomplete.
+- **`es/index.html` is the other half of the site** — any change to copy,
+  structure or content on `index.html` MUST be mirrored there in the same
+  commit, and vice versa. Same rule as /brand/, same consequence: if they
+  diverge, the change was incomplete. Full checklist under "Content rules".
 - **OG images** are rendered with system font stand-ins — re-render from the
   design file with real Cormorant Garamond/DM Sans when brand type matters.
-- **Spanish OG copy** (social/og-image-es.png + the es_ES snippet in the
-  export README) is an unreviewed translation — brand review before an ES
-  page ships. ES meta tags are NOT yet in index.html (EN only until i18n).
+- **`social/og-image-es.png`** is an unreviewed translation and is now live on
+  `/es/`. Re-render it whenever the Spanish hero copy changes, and get it
+  reviewed alongside the page copy.
 - **Favicon rule:** the square favicon is the ONLY permitted container for
   the wordmark. Everywhere else: no container shapes.
 
