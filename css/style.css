@@ -89,7 +89,11 @@ h1, h2, h3 { margin: 0; }
   padding: 8px 10px 8px 20px;
 }
 .header-logo { display: block; flex: none; }
-.header-logo img { height: 15px; display: block; }
+/* width:auto is load-bearing — the width/height attributes are there to give the
+   browser an aspect ratio, but the width attribute is also a presentational hint
+   that sets CSS width. Without width:auto the wordmark renders at its intrinsic
+   1206px with a 15px height, i.e. smeared across the header. */
+.header-logo img { height: 15px; width: auto; display: block; }
 .nav-links { display: flex; gap: 30px; margin: 0 auto; font-size: 15px; letter-spacing: .01em; }
 .nav-links a { color: var(--cream); }
 .nav-ig { flex: none; align-items: center; margin: 0; }
@@ -323,7 +327,7 @@ h1, h2, h3 { margin: 0; }
 /* ---------- footer ---------- */
 .site-footer { border-top: 1px solid rgba(255, 253, 243, .2); padding: 44px 28px; }
 .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
-.footer-logo { height: 18px; display: block; }
+.footer-logo { height: 18px; width: auto; display: block; } /* see .header-logo img */
 .footer-cities { margin: 0; font-size: 13.5px; letter-spacing: .06em; color: rgba(255, 253, 243, .7); }
 .footer-right { margin-left: auto; display: flex; align-items: center; gap: 20px; }
 .footer-ig { display: flex; align-items: center; color: var(--cream); }
