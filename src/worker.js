@@ -3,13 +3,13 @@
  * Serves the static site (assets binding) and handles the contact form:
  * POST /api/contact → email to honor@arca-consultancy.com via Cloudflare Email Sending.
  *
- * NOTE: the `from` domain must be onboarded to Email Sending on this account.
- * Currently using tryopenclimb.com (onboarded); switch to arca-consultancy.com
- * once that zone is added and `wrangler email sending enable arca-consultancy.com` is run.
+ * NOTE: the `from` domain must be onboarded to Email Sending on this account
+ * (`wrangler email sending enable arca-consultancy.com`). Email Sending only —
+ * never Email Routing, which replaces the root MX and breaks the Google mailbox.
  */
 
 const CONTACT_TO = 'honor@arca-consultancy.com';
-const CONTACT_FROM = { email: 'noreply@tryopenclimb.com', name: 'Arca Website' };
+const CONTACT_FROM = { email: 'noreply@arca-consultancy.com', name: 'Arca Website' };
 const MAX_FIELD = 2000;
 
 function clean(v) {

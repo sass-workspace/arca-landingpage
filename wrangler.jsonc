@@ -2,8 +2,9 @@
   "name": "arca-landingpage",
   "main": "src/worker.js",
   "compatibility_date": "2026-07-01",
-  "account_id": "45fdb0dce3914b3a29fe17eee10228b0",
-  "workers_dev": true,
+  "account_id": "bda87029926f4cf34b72bfe58f614b60",
+  "workers_dev": false,
+  "preview_urls": false,
   "routes": [
     { "pattern": "arca-consultancy.com", "custom_domain": true },
     { "pattern": "www.arca-consultancy.com", "custom_domain": true }
