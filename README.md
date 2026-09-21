@@ -3,8 +3,8 @@
 One-page marketing site for [arca-consultancy.com](https://arca-consultancy.com).
 Implementation of the design handoff (`Arca Landing.dc.html` + handoff README).
 
-**Live:** https://arca-landingpage.ms-45f.workers.dev
-**Brand guidelines:** https://arca-landingpage.ms-45f.workers.dev/brand/
+**Live:** https://arca-consultancy.com
+**Brand guidelines:** https://arca-consultancy.com/brand/
 
 ## Stack
 

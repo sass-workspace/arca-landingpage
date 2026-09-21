@@ -3,6 +3,10 @@
   "main": "src/worker.js",
   "compatibility_date": "2026-07-01",
   "account_id": "45fdb0dce3914b3a29fe17eee10228b0",
+  "routes": [
+    { "pattern": "arca-consultancy.com", "custom_domain": true },
+    { "pattern": "www.arca-consultancy.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./",
     "binding": "ASSETS"

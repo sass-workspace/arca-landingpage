@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /brand/
 
-Sitemap: https://arca-landingpage.ms-45f.workers.dev/sitemap.xml
+Sitemap: https://arca-consultancy.com/sitemap.xml
