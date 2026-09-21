@@ -13,5 +13,6 @@
     "directory": "./",
     "binding": "ASSETS"
   },
+  "send_email": [{ "name": "EMAIL" }],
   "observability": { "enabled": true }
 }

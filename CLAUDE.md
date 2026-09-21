@@ -33,7 +33,7 @@ brand/index.html    brand guidelines & CI sheet (/brand/, noindex)
 css/style.css       landing tokens, components, responsive (900px / 560px)
 css/brand.css       guidelines page styles
 js/site.js          marquees, reveals, connector lines, video triggers, form
-src/worker.js       serves assets + POST /api/contact → relay → email
+src/worker.js       serves assets + POST /api/contact → email
 robots.txt          allows all, disallows /brand/, points at the sitemap
 sitemap.xml         both language URLs with reciprocal hreflang alternates
 assets/logos/       23 client/press marks + arca-wordmark-cream.png
@@ -44,7 +44,7 @@ assets/images/      2 videos, portrait (jpg), campaign image, grain tile
 favicon/            16/32/48/180/192/512 PNG set (cream wordmark on blue)
 social/             og-image-en.png / og-image-es.png (1200×630)
 site.webmanifest    PWA manifest (theme #08177E)
-wrangler.jsonc      Worker + assets binding + custom-domain routes
+wrangler.jsonc      Worker + assets + send_email bindings, custom-domain routes
 .assetsignore       keeps repo/meta files out of the deployed assets
 ```
 
@@ -66,23 +66,19 @@ map in `js/site.js`, keyed off `<html lang>`.
 
 ## Form backend
 
-`POST /api/contact` → relayed to the old Worker → **honor@arca-consultancy.com**.
+`POST /api/contact` → Cloudflare Email Sending → **honor@arca-consultancy.com**,
+from `noreply@arca-consultancy.com`.
 
-The site runs in **Honor's Cloudflare account** (`bda870…`, holds the
-arca-consultancy.com zone). That account is on Workers Free, which has no Email
-Sending, so `src/worker.js` validates the form and relays it to the original
-Worker in the **elbDev account** (`45fdb0…`,
-`arca-landingpage.ms-45f.workers.dev`), which sends the email from
-`noreply@tryopenclimb.com`. That old Worker is load-bearing: never delete it and
-never run `wrangler deploy` / `triggers deploy` against the elbDev account from
-this repo — its source is `src/worker.js` at commit `cf54d2a`.
+The site runs in **Honor's Cloudflare account** (`bda870…`, Workers Paid — Email
+Sending is not available on Workers Free). The zone is onboarded to Email
+Sending (`npx wrangler email sending enable arca-consultancy.com`); its records
+live on `cf-bounce.*`.
 
 **Never onboard the zone to Email Routing** — it replaces the root MX and breaks
-Honor's Google Workspace mailbox. Email *Sending* is safe (records live on
-`cf-bounce.*`). To drop the relay: put Honor's account on Workers Paid, run
-`npx wrangler email sending enable arca-consultancy.com`, restore
-`"send_email": [{ "name": "EMAIL" }]` in `wrangler.jsonc`, and send from
-`noreply@arca-consultancy.com` in the Worker.
+Honor's Google Workspace mailbox.
+
+The original Worker in the elbDev account (`45fdb0…`,
+`arca-landingpage.ms-45f.workers.dev`) is no longer used by this site.
 
 DNS: nameservers are Cloudflare's (registrar is still Squarespace Domains). The
 MX, SPF and `google._domainkey` records are Honor's mail — leave them alone.
@@ -190,8 +186,7 @@ excepted — their focus state is the underline per spec).
 
 ## Open before launch
 
-1. Move form email off the relay (needs Workers Paid on Honor's account — see
-   "Form backend")
+1. Done (Sep 2026): custom domain live, form email sent from the domain
 2. **Decided, do not re-raise:** three of the seven 2026 Highlights restate the
    numbers in the stats row directly above (600+, 2×, 60%). Kept deliberately —
    the stats are the headline figures and the highlights explain them further.

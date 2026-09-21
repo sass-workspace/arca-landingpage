@@ -1,17 +1,16 @@
 /**
  * Arca Consultancy — Worker
  * Serves the static site (assets binding) and handles the contact form:
- * POST /api/contact → relayed to the elbDev-account Worker, which emails
- * honor@arca-consultancy.com via Cloudflare Email Sending.
+ * POST /api/contact → email to honor@arca-consultancy.com via Cloudflare Email Sending.
  *
- * NOTE: this account is on Workers Free, where Email Sending is not available,
- * and Email Routing is off the table — onboarding it replaces the root MX and
- * breaks the Google mailbox. Once this account is on Workers Paid: run
- * `wrangler email sending enable arca-consultancy.com`, restore the
- * `send_email` binding and send from here instead of relaying.
+ * NOTE: the `from` domain must be onboarded to Email Sending on this account
+ * (`wrangler email sending enable arca-consultancy.com` — needs Workers Paid).
+ * Email Sending only — never Email Routing, which replaces the root MX and
+ * breaks the Google mailbox.
  */
 
-const CONTACT_RELAY = 'https://arca-landingpage.ms-45f.workers.dev/api/contact';
+const CONTACT_TO = 'honor@arca-consultancy.com';
+const CONTACT_FROM = { email: 'noreply@arca-consultancy.com', name: 'Arca Website' };
 const MAX_FIELD = 2000;
 
 function clean(v) {
@@ -42,16 +41,24 @@ export default {
         return Response.json({ ok: false, error: 'empty submission' }, { status: 400 });
       }
 
+      const text =
+        'New inquiry via arca-consultancy.com\n\n' +
+        'Name: ' + name + '\n' +
+        'Brand: ' + brand + '\n' +
+        'Website/Instagram: ' + website + '\n' +
+        'Target market: ' + market + '\n\n' +
+        'Message:\n' + message + '\n';
+
       try {
-        const res = await fetch(CONTACT_RELAY, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ name, brand, website, market, message }),
+        await env.EMAIL.send({
+          to: CONTACT_TO,
+          from: CONTACT_FROM,
+          subject: 'Introduction call — ' + (brand || name || 'new inquiry'),
+          text: text,
         });
-        if (!res.ok) throw new Error('relay responded ' + res.status);
         return Response.json({ ok: true });
       } catch (err) {
-        console.error('contact relay failed', err && err.message);
+        console.error('email send failed', err && err.message);
         return Response.json({ ok: false, error: 'send failed' }, { status: 502 });
       }
     }
