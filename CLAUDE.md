@@ -5,7 +5,7 @@
 One-page marketing site for **Arca Consultancy** (arca-consultancy.com) — a
 London-based fashion consultancy (founder: **Honor Ripley**) taking
 luxury/contemporary brands (Latin American focus) into international retail.
-Live: https://arca-landingpage.ms-45f.workers.dev
+Live: https://arca-consultancy.com
 Repo: https://github.com/sass-workspace/arca-landingpage
 
 ## Design source of truth
@@ -33,7 +33,7 @@ brand/index.html    brand guidelines & CI sheet (/brand/, noindex)
 css/style.css       landing tokens, components, responsive (900px / 560px)
 css/brand.css       guidelines page styles
 js/site.js          marquees, reveals, connector lines, video triggers, form
-src/worker.js       serves assets + POST /api/contact → email
+src/worker.js       serves assets + POST /api/contact → relay → email
 robots.txt          allows all, disallows /brand/, points at the sitemap
 sitemap.xml         both language URLs with reciprocal hreflang alternates
 assets/logos/       23 client/press marks + arca-wordmark-cream.png
@@ -44,7 +44,7 @@ assets/images/      2 videos, portrait (jpg), campaign image, grain tile
 favicon/            16/32/48/180/192/512 PNG set (cream wordmark on blue)
 social/             og-image-en.png / og-image-es.png (1200×630)
 site.webmanifest    PWA manifest (theme #08177E)
-wrangler.jsonc      Worker + assets binding + send_email binding
+wrangler.jsonc      Worker + assets binding + custom-domain routes
 .assetsignore       keeps repo/meta files out of the deployed assets
 ```
 
@@ -66,11 +66,26 @@ map in `js/site.js`, keyed off `<html lang>`.
 
 ## Form backend
 
-`POST /api/contact` → Cloudflare Email Sending → **honor@arca-consultancy.com**.
-`from` is currently `noreply@tryopenclimb.com` (the only domain onboarded to
-Email Sending on this account). When `arca-consultancy.com` is added to
-Cloudflare: `npx wrangler email sending enable arca-consultancy.com`, then
-update `CONTACT_FROM` in `src/worker.js`.
+`POST /api/contact` → relayed to the old Worker → **honor@arca-consultancy.com**.
+
+The site runs in **Honor's Cloudflare account** (`bda870…`, holds the
+arca-consultancy.com zone). That account is on Workers Free, which has no Email
+Sending, so `src/worker.js` validates the form and relays it to the original
+Worker in the **elbDev account** (`45fdb0…`,
+`arca-landingpage.ms-45f.workers.dev`), which sends the email from
+`noreply@tryopenclimb.com`. That old Worker is load-bearing: never delete it and
+never run `wrangler deploy` / `triggers deploy` against the elbDev account from
+this repo — its source is `src/worker.js` at commit `cf54d2a`.
+
+**Never onboard the zone to Email Routing** — it replaces the root MX and breaks
+Honor's Google Workspace mailbox. Email *Sending* is safe (records live on
+`cf-bounce.*`). To drop the relay: put Honor's account on Workers Paid, run
+`npx wrangler email sending enable arca-consultancy.com`, restore
+`"send_email": [{ "name": "EMAIL" }]` in `wrangler.jsonc`, and send from
+`noreply@arca-consultancy.com` in the Worker.
+
+DNS: nameservers are Cloudflare's (registrar is still Squarespace Domains). The
+MX, SPF and `google._domainkey` records are Honor's mail — leave them alone.
 
 ## Brand system (canonical: /brand/ — the live CI sheet; keep it updated whenever the system changes)
 
@@ -153,19 +168,11 @@ excepted — their focus state is the underline per spec).
 
 ## Future adjustments — do not forget
 
-- **Domain switch (arca-consultancy.com)** — every absolute URL on the site is
-  `arca-landingpage.ms-45f.workers.dev`. One find-and-replace across the repo
-  catches them all; this is the checklist to verify afterwards:
-  - `index.html` and `es/index.html`: `og:url`, `og:image`, `canonical`, all
-    three `hreflang` links, and the **JSON-LD** block (`@id`, `url`, `logo`,
-    `image`)
-  - `robots.txt`: the `Sitemap:` line
-  - `sitemap.xml`: both `<loc>` and all six `<xhtml:link href>`
-  - `src/worker.js`: `CONTACT_FROM`, then run
-    `npx wrangler email sending enable arca-consultancy.com`
-  - Add the custom domain to the Worker
-  - Verify: `curl -s <domain>/sitemap.xml` and re-check the pair of pages still
-    reference each other reciprocally in `hreflang`
+- **Domain switch — done (Sep 2026).** Every absolute URL is
+  `https://arca-consultancy.com`. If the domain ever changes again, the places
+  are: `og:url`, `og:image`, `canonical`, the three `hreflang` links and the
+  JSON-LD block in both pages, `robots.txt`, `sitemap.xml`, and `routes` in
+  `wrangler.jsonc`.
 - **/brand/ is the living CI sheet** — any change to colors, type, spacing,
   components or motion on the site MUST be mirrored on /brand/ in the same
   commit. If they diverge, /brand/ is wrong and the change was incomplete.
@@ -183,7 +190,8 @@ excepted — their focus state is the underline per spec).
 
 ## Open before launch
 
-1. Onboard arca-consultancy.com for email + custom domain routing
+1. Move form email off the relay (needs Workers Paid on Honor's account — see
+   "Form backend")
 2. **Decided, do not re-raise:** three of the seven 2026 Highlights restate the
    numbers in the stats row directly above (600+, 2×, 60%). Kept deliberately —
    the stats are the headline figures and the highlights explain them further.
