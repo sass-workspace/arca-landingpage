@@ -37,7 +37,7 @@ js/site.js          marquees, reveals, connector lines, video triggers, form
 src/worker.js       serves assets + POST /api/contact → email
 robots.txt          allows all, disallows /brand/, points at the sitemap
 sitemap.xml         both language URLs with reciprocal hreflang alternates
-assets/logos/       23 client/press marks + arca-wordmark-cream.png
+assets/logos/       24 client/press marks + arca-wordmark-cream.png
                     (glyph heights: header 15/13px, footer 18px; never the
                     badge version, never in a container shape)
 assets/buyers/      12 buyer marks — the cleaned .png set only
@@ -185,6 +185,8 @@ excepted — their focus state is the underline per spec).
   structure or content on `index.html` MUST be mirrored there in the same
   commit, and vice versa. Same rule as /brand/, same consequence: if they
   diverge, the change was incomplete. Full checklist under "Content rules".
+- **OG images carry the cities line** (London — Paris — New York — Miami, added
+  Sep 2026) — if the footer cities change, re-render both.
 - **OG images** are rendered with system font stand-ins — re-render from the
   design file with real Cormorant Garamond/DM Sans when brand type matters.
 - **`social/og-image-es.png`** was re-rendered in Sep 2026 to match the reviewed
@@ -211,7 +213,8 @@ excepted — their focus state is the underline per spec).
 Third-party logo permissions: client/buyer/press marks belong to their owners —
 Honor confirmed use for the full current set including the five marks added in
 the Aug 2026 round (Valentina Quintero, Maygel Coronel, Soloio, Casabela,
-kibys). Keep the paper trail.
+kibys). Wild & Pacific was added in Sep 2026 at the client's request (file taken
+from wildandpacific.com). Keep the paper trail.
 
 Note on `collection-animate.mp4`: it is a baked video with no editable source in
 the handoff — any text change in that diagram means a re-export from the designer,

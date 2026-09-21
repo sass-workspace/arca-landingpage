@@ -42,7 +42,8 @@
     { src: '/assets/logos/pitusa.png', alt: 'Pitusa', h: 32, w: 111 },
     { src: '/assets/logos/splash.png', alt: 'Splash', h: 20, w: 181 },
     { src: '/assets/logos/casabela.png', alt: 'Casabela', h: 20, w: 127 },
-    { src: '/assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 49, w: 302 } // width-clamped
+    { src: '/assets/logos/cala-de-la-cruz.png', alt: 'Cala de la Cruz', h: 49, w: 302 }, // width-clamped
+    { src: '/assets/logos/wild-and-pacific.png', alt: 'Wild & Pacific', h: 19, w: 258 }
   ];
   var press = [
     { src: '/assets/logos/vogue-mexico.svg', alt: 'Vogue México', h: 36, w: 154, dy: 9 },
