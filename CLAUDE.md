@@ -157,17 +157,15 @@ excepted — their focus state is the underline per spec).
     `<html lang>`. A new string there needs an entry per language.
   - Spanish is **Latin American** Spanish, not Castilian. No `vosotros`.
 - Copy is source-of-truth from the handoff — never rewrite or "improve"
-- **Legal identity:** the site is operated by **Everywear** (US company, trades as
-  Arca), 930 S 4th St, Ste 209 #5962, Las Vegas, Nevada 89101. The former UK
+- **Legal identity:** the site is operated by **Everywear LLC** (US company, trades as
+  Arca; state of registration not confirmed — do not state one), 930 S 4th St, Ste 209 #5962, Las Vegas, Nevada 89101. The former UK
   company ARCA CONSULTANCY LTD (16374912) was dissolved on 24 Mar 2026 — never
   cite it. The entity appears in `.footer-legal` on all four pages and in the
   privacy policy; the privacy pages are hand-maintained twins like the landing
   pages, and any change to what the site collects (form fields, analytics,
   cookies, fonts, processors) must be reflected there in both languages.
 - Unconfirmed content ships as visible `.chip-todo` chips on `#F7C948` — resolve
-  or remove before launch, never silently. **One open right now** (Sep 2026): the
-  legal suffix + state of registration of Everywear, in `.footer-legal` on all four
-  pages and in "Who we are" on both privacy pages. Previously none — the
+  or remove before launch, never silently. **None on the page right now** — the
   founder `[[placeholders]]` and the six missing client logos are all resolved.
   Keep `.chip-todo` in the CSS; it is the convention for the next gap.
 - No invented clients/numbers/testimonials; no emoji; no exclamation marks
