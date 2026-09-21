@@ -178,9 +178,10 @@ excepted — their focus state is the underline per spec).
   diverge, the change was incomplete. Full checklist under "Content rules".
 - **OG images** are rendered with system font stand-ins — re-render from the
   design file with real Cormorant Garamond/DM Sans when brand type matters.
-- **`social/og-image-es.png`** is an unreviewed translation and is now live on
-  `/es/`. Re-render it whenever the Spanish hero copy changes, and get it
-  reviewed alongside the page copy.
+- **`social/og-image-es.png`** was re-rendered in Sep 2026 to match the reviewed
+  hero copy ("…listas para el crecimiento internacional", "Gestión de venta
+  mayorista", "Londres — París — Nueva York"). Re-render it whenever the Spanish
+  hero copy changes.
 - **Favicon rule:** the square favicon is the ONLY permitted container for
   the wordmark. Everywhere else: no container shapes.
 
@@ -195,8 +196,8 @@ excepted — their focus state is the underline per spec).
    pass: thousands are Colombia-style (`3.000+`); "retailers" not "retail" for
    relationships; industry terms deliberately left in English (sourcing,
    fashion week, swimwear, chainmail, line sheets, sell-in, DTC, SKU,
-   e-commerce, pop-ups, showroom). Not yet reviewed: `social/og-image-es.png`,
-   which still carries the pre-review hero wording.
+   e-commerce, pop-ups, showroom). `social/og-image-es.png` now carries the reviewed
+   hero wording.
 
 Third-party logo permissions: client/buyer/press marks belong to their owners —
 Honor confirmed use for the full current set including the five marks added in
