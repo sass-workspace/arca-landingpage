@@ -17,4 +17,16 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://arca-consultancy.com/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://arca-consultancy.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://arca-consultancy.com/es/privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arca-consultancy.com/privacy/"/>
+  </url>
+  <url>
+    <loc>https://arca-consultancy.com/es/privacidad/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://arca-consultancy.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://arca-consultancy.com/es/privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arca-consultancy.com/privacy/"/>
+  </url>
 </urlset>

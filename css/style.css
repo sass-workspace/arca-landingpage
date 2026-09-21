@@ -46,7 +46,7 @@ h1, h2, h3 { margin: 0; }
 
 /* one display tier: same tracking and leading on every h1/h2, blue band or cream */
 .hero-copy h1, .h2-problem, .section-head h2, .section-head-simple h2,
-.h2-proof, .h2-founder, .h2-contact {
+.h2-proof, .h2-founder, .h2-contact, .legal h1 {
   letter-spacing: var(--ls-display); line-height: var(--lh-display);
 }
 
@@ -343,6 +343,19 @@ h1, h2, h3 { margin: 0; }
 .footer-lang .on { padding: 6px 14px; background: var(--cream); color: var(--blue); font-weight: 600; }
 .footer-lang .off { padding: 6px 14px; color: rgba(255, 253, 243, .7); cursor: pointer; }
 .footer-copy { margin: 0; font-size: 12.5px; color: rgba(255, 253, 243, .65); }
+/* legal line: its own full-width row under the footer bar */
+.footer-legal { flex-basis: 100%; margin: 0; font-size: 12.5px; line-height: 1.7; color: rgba(255, 253, 243, .65); }
+.footer-legal a { color: var(--cream); border-bottom: 1px solid rgba(255, 253, 243, .5); }
+
+/* ---------- legal pages (/privacy/, /es/privacidad/) ----------
+   No new type sizes: h1 = .h2-problem, h2 = .step-body h3, body = .problem-body,
+   date line = .footer-cities. */
+.legal-inner { max-width: 720px; margin: 0 auto; }
+.legal h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(34px, 3.6vw, 52px); }
+.legal-updated { margin: 18px 0 0; font-size: 13.5px; letter-spacing: .06em; color: rgba(8, 23, 126, .7); }
+.legal h2 { margin: 56px 0 0; font-family: var(--serif); font-size: 23px; font-weight: 600; line-height: 1.25; }
+.legal p:not(.legal-updated) { margin: 16px 0 0; font-size: 17px; line-height: 1.75; color: rgba(8, 23, 126, .82); }
+.legal p a { border-bottom: 1px solid rgba(8, 23, 126, .4); }
 
 /* ---------- reveal (JS adds .rv-in) ---------- */
 [data-rv] { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
@@ -365,6 +378,7 @@ h1, h2, h3 { margin: 0; }
     padding-left: 22px; padding-right: 22px;
   }
   .section { padding-top: 64px; padding-bottom: 64px; }
+  .section.legal { padding-top: 120px; } /* first thing on the page: clear the sticky header */
   .client-strip { padding: 36px 0; }
   .section-head.ruled, .section-head-simple.ruled { padding-top: 40px; }
   .services-section { padding-bottom: 80px; }
