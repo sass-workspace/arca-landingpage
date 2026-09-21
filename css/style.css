@@ -11,9 +11,9 @@
   /* display headings share one tracking + leading — every h1/h2 on the page uses both */
   --ls-display: -.01em;
   --lh-display: 1.12;
-  /* logo recolor filters (sources are black-on-transparent) */
+  /* logo recolor (sources are black-on-transparent). Cream is a filter; blue is a
+     mask filled with --blue — see .logo-blue */
   --f-cream: brightness(0) invert(1) brightness(.99);
-  --f-blue: brightness(0) saturate(100%) invert(9%) sepia(86%) saturate(4695%) hue-rotate(243deg) brightness(90%) contrast(105%);
 }
 
 * { box-sizing: border-box; }
@@ -69,8 +69,8 @@ h1, h2, h3 { margin: 0; }
 .link-underline:hover { border-bottom-color: var(--cream); opacity: 1; }
 
 /* TODO chip — unresolved content marker. Currently the logo walls, where it stands in
-   for a client mark we don't have the file for yet. Never filtered: --f-blue/--f-cream
-   both start with brightness(0) and would flatten the yellow. */
+   for a client mark we don't have the file for yet. Never recoloured: --f-cream starts
+   with brightness(0) and the blue mask fills with --blue — both would lose the yellow. */
 .chip-todo {
   flex: none; display: inline-flex; align-items: center; white-space: nowrap;
   font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .06em;
@@ -140,13 +140,21 @@ h1, h2, h3 { margin: 0; }
   width: max-content; padding-right: 80px;
   will-change: transform;
 }
-.marquee img { flex: none; }
+.marquee img, .marquee .logo-blue { flex: none; }
 .marquee-32 { animation: arca-marquee 32s linear infinite; }
 .marquee-38 { animation: arca-marquee 38s linear infinite; }
 .marquee-42 { animation: arca-marquee 42s linear infinite; }
 .marquee-reverse { animation-direction: reverse; }
 .logo-cream { filter: var(--f-cream); }
-.logo-blue { filter: var(--f-blue); }
+/* Blue marks are a span masked by the logo file, not a filtered <img>: the long
+   sepia/saturate/hue-rotate chain that approximated #08177E rendered magenta on
+   iOS Safari. A mask takes its colour from --blue directly, in every engine.
+   100% 100% matches what the <img> width/height attributes did. */
+.logo-blue {
+  display: block; background: var(--blue);
+  -webkit-mask: var(--src) center / 100% 100% no-repeat;
+  mask: var(--src) center / 100% 100% no-repeat;
+}
 
 /* ---------- 2 · problem ---------- */
 .problem-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; align-items: center; }

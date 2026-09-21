@@ -2,7 +2,8 @@
 (function () {
   'use strict';
 
-  /* ------- logo rows (marquees; sources are black-on-transparent, recolored via CSS filter)
+  /* ------- logo rows (marquees; sources are black-on-transparent, recolored in CSS:
+     cream rows by filter, the blue row by mask)
 
      Marks are sized on their CAP BAND, not their bounding box. Every file wraps its
      letterforms differently — a tagline under SER, an accent over MIALÉ, a Q tail on
@@ -79,6 +80,15 @@
         node.className = 'chip-todo';       // never filterClass — the filters start with
         node.textContent = d.label;         // brightness(0) and would flatten the yellow
         if (isDup) node.setAttribute('aria-hidden', 'true');
+      } else if (filterClass === 'logo-blue') {
+        node = document.createElement('span'); // masked, not filtered — see .logo-blue
+        node.className = filterClass;
+        node.style.setProperty('--src', 'url("' + d.src + '")');
+        node.style.width = d.w + 'px';
+        node.style.height = d.h + 'px';
+        if (d.dy) node.style.transform = 'translateY(' + d.dy + 'px)';
+        if (isDup) node.setAttribute('aria-hidden', 'true');
+        else { node.setAttribute('role', 'img'); node.setAttribute('aria-label', d.alt); }
       } else {
         node = document.createElement('img');
         node.src = d.src;

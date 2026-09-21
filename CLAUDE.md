@@ -91,8 +91,9 @@ MX, SPF and `google._domainkey` records are Honor's mail — leave them alone.
   headings share `--ls-display` / `--lh-display` — never set tracking or leading
   per heading, that is what drifted and got flagged in review
 - One button style (cream pill); no drop shadows except the header bar
-- Logos rendered monochrome via CSS filters (`--f-cream`, `--f-blue`); sources
-  are black-on-transparent. **Sized and centred on the cap band, not the
+- Logos rendered monochrome in CSS; sources are black-on-transparent. Cream is a
+  filter (`--f-cream`); blue is a **mask** filled with `--blue` (`.logo-blue`) —
+  the old filter chain for blue rendered magenta on iOS Safari, do not bring it back. **Sized and centred on the cap band, not the
   bounding box** — one ~19px cap height across every row, `w` from the file's
   aspect, `dy` to put the cap band on the row centre (see the header comment in
   `js/site.js`). Box-centring is what made the walls look ragged in review:
