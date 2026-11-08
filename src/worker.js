@@ -12,6 +12,7 @@
 const CONTACT_TO = 'honor@arca-consultancy.com';
 const CONTACT_FROM = { email: 'noreply@arca-consultancy.com', name: 'Arca Website' };
 const MAX_FIELD = 2000;
+const EMAIL_RE = /^[^\s@<>",]+@[^\s@<>",]+\.[^\s@<>",]+$/;
 
 function clean(v) {
   return (typeof v === 'string' ? v : '').slice(0, MAX_FIELD).trim();
@@ -32,18 +33,21 @@ export default {
         return Response.json({ ok: false, error: 'invalid body' }, { status: 400 });
       }
       const name = clean(data.name);
+      const email = clean(data.email).slice(0, 254);
       const brand = clean(data.brand);
       const website = clean(data.website);
       const market = clean(data.market);
       const message = clean(data.message);
 
-      if (!name && !brand && !message) {
-        return Response.json({ ok: false, error: 'empty submission' }, { status: 400 });
+      // Email is mandatory: it is the Reply-To, so Honor can answer straight from her inbox.
+      if (!EMAIL_RE.test(email)) {
+        return Response.json({ ok: false, error: 'invalid email' }, { status: 400 });
       }
 
       const text =
         'New inquiry via arca-consultancy.com\n\n' +
         'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
         'Brand: ' + brand + '\n' +
         'Website/Instagram: ' + website + '\n' +
         'Target market: ' + market + '\n\n' +
@@ -53,6 +57,7 @@ export default {
         await env.EMAIL.send({
           to: CONTACT_TO,
           from: CONTACT_FROM,
+          replyTo: name ? { email: email, name: name } : email,
           subject: 'Introduction call — ' + (brand || name || 'new inquiry'),
           text: text,
         });

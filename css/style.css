@@ -318,7 +318,9 @@ h1, h2, h3 { margin: 0; }
   color: var(--cream); font-size: 15px; padding: 12px 2px; outline: none; border-radius: 0;
 }
 .contact-form input:focus, .contact-form textarea:focus { border-bottom-color: var(--cream); }
+.contact-form [aria-invalid="true"] { border-bottom-color: var(--cream); border-bottom-width: 2px; }
 .contact-form textarea { grid-column: 1 / -1; resize: vertical; }
+.contact-form [name="market"] { grid-column: 1 / -1; } /* five inputs: market closes the grid on its own row */
 .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 8px; }
 .btn-submit { padding: 15px 34px; }
 .signoff { margin: 0; font-family: var(--serif); font-style: italic; font-size: 21px; color: rgba(255, 253, 243, .85); }

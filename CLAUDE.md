@@ -129,7 +129,7 @@ MX, SPF and `google._domainkey` records are Honor's mail — leave them alone.
 
 All of these change nothing visually; do not strip them during edits:
 skip-link (.skip-link, appears on keyboard focus), <main> landmark,
-aria-labels on the five form fields and both Instagram icon links,
+aria-labels on the six form fields and both Instagram icon links,
 aria-hidden on decorative videos and on the marquee's duplicate logo
 set (the seamless-loop copy), :focus-visible outlines (form fields
 excepted — their focus state is the underline per spec).

@@ -289,8 +289,8 @@
      The only user-facing strings in JS. Everything else is in the markup, so a new
      language means a new page plus two entries here. */
   var COPY = {
-    en: { sent: 'Received — we’ll be in touch', retry: 'Send — try again' },
-    es: { sent: 'Recibido — nos pondremos en contacto', retry: 'Enviar — intenta de nuevo' }
+    en: { sent: 'Received — we’ll be in touch', retry: 'Send — try again', email: 'Send — add your email' },
+    es: { sent: 'Recibido — nos pondremos en contacto', retry: 'Enviar — intenta de nuevo', email: 'Enviar — agrega tu correo' }
   };
   var t = COPY[(document.documentElement.lang || 'en').slice(0, 2)] || COPY.en;
 
@@ -302,12 +302,22 @@
       if (sent) return;
       var f = new FormData(form);
       var btn = document.getElementById('submit-btn');
+      var email = form.elements.email;
+      // Email is the only required field — without it Honor has no way to reply.
+      if (!email.value.trim() || !email.checkValidity()) {
+        email.setAttribute('aria-invalid', 'true');
+        btn.textContent = t.email;
+        email.focus();
+        return;
+      }
+      email.removeAttribute('aria-invalid');
       btn.disabled = true;
       fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: f.get('name') || '',
+          email: f.get('email') || '',
           brand: f.get('brand') || '',
           website: f.get('website') || '',
           market: f.get('market') || '',
