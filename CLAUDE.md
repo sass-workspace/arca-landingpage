@@ -4,7 +4,7 @@
 
 One-page marketing site for **Arca Consultancy** (arca-consultancy.com) — a
 London-based fashion consultancy (founder: **Honor Ripley**) taking
-luxury/contemporary brands (Latin American focus) into international retail.
+luxury/contemporary emerging fashion brands into international retail (SEO targets "emerging fashion brands" since Nov 2026 — no longer "Latin American").
 Live: https://arca-consultancy.com
 Repo: https://github.com/sass-workspace/arca-landingpage
 
