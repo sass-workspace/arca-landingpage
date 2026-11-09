@@ -83,6 +83,9 @@ The original Worker in the elbDev account (`45fdb0…`,
 
 DNS: nameservers are Cloudflare's (registrar is still Squarespace Domains). The
 MX, SPF and `google._domainkey` records are Honor's mail — leave them alone.
+The root TXT `google-site-verification=…` (added Nov 2026) verifies the Search
+Console Domain property in ms@elbdev.de's Google account — removing it drops
+the verification. Sitemap is submitted there.
 
 ## Brand system (canonical: /brand/ — the live CI sheet; keep it updated whenever the system changes)
 
